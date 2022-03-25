@@ -1,10 +1,10 @@
-# BASE_ARTIFACT_ID
+# axon-avro-generator-maven-plugin
 
 Template repository for usage in organizations: toolisticon, holunda-io, holixon...
 
-[![Build Status](https://github.com/GITHUB_ORGANIZATION/GITHUB_REPOSITORY/workflows/Development%20branches/badge.svg)](https://github.com/GITHUB_ORGANIZATION/GITHUB_REPOSITORY/actions)
+[![Build Status](https://github.com/holixon/axon-avro-generator-maven-plugin/workflows/Development%20branches/badge.svg)](https://github.com/holixon/axon-avro-generator-maven-plugin/actions)
 [![sponsored](https://img.shields.io/badge/sponsoredBy-Holisticon-RED.svg)](https://holisticon.de/)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/BASE_GROUP_ID/BASE_ARTIFACT_ID/badge.svg)](https://maven-badges.herokuapp.com/maven-central/BASE_GROUP_ID/BASE_ARTIFACT_ID)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.holixon.avro.maven/axon-avro-generator-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.holixon.avro.maven/axon-avro-generator-maven-plugin)
 
 This repository is a **template repository** designed to be a template for the next project.
 

@@ -1,4 +1,4 @@
-package BASE_GROUP_ID
+package io.holixon.avro.maven
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
