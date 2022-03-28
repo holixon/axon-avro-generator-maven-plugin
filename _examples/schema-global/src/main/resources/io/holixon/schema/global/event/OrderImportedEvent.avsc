@@ -1,0 +1,95 @@
+{
+  "type": "record",
+  "namespace": "io.holixon.schema.global.event",
+  "name": "OrderImportedEvent",
+  "doc": "A new order has been imported. Order ID ...",
+  "meta": {
+    "type": "event",
+    "revision": "1"
+  },
+  "fields": [
+    {
+      "name": "orderId",
+      "type": "string"
+    },
+    {
+      "name": "customer",
+      "type": {
+        "type": "record",
+        "namespace": "global.model",
+        "name": "Customer",
+        "doc": "A customer",
+        "fields": [
+          {
+            "name": "billingAddress",
+            "type": {
+              "type": "record",
+              "namespace": "global.model",
+              "name": "Address",
+              "doc": "An address",
+              "fields": [
+                {
+                  "name": "street",
+                  "type": "string"
+                },
+                {
+                  "name": "city",
+                  "type": "string"
+                },
+                {
+                  "name": "number",
+                  "type": "string"
+                },
+                {
+                  "name": "zip",
+                  "type": "string"
+                },
+                {
+                  "name": "country",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          {
+            "name": "deliveryAddress",
+            "type": "Address"
+          },
+          {
+            "name": "mailAddress",
+            "type": "string"
+          },
+          {
+            "name": "phoneNumber",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "comment",
+      "type": "string"
+    },
+    {
+      "name": "orderPositions",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "OrderPosition",
+          "namespace": "global.model",
+          "type": "record",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "itemNumber",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

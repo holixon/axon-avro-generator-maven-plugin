@@ -1,0 +1,20 @@
+{
+  "type": "record",
+  "namespace": "io.holixon.schema.bank.event",
+  "name": "BalanceChangedEvent",
+  "doc": "Domain event containing accountId and new balance",
+  "meta": {
+    "type": "event",
+    "revision": "1"
+  },
+  "fields": [
+    {
+      "name": "accountId",
+        "type": "string"
+    },
+    {
+      "name": "newBalance",
+      "type": "int"
+    }
+  ]
+}
