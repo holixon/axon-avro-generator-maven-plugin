@@ -1,15 +1,27 @@
 package io.holixon.avro.maven.executor
 
+import io.holixon.avro.maven.maven.MojoComponents
+import mu.KLogger
 import org.apache.maven.model.Plugin
-import org.twdata.maven.mojoexecutor.MojoExecutor
 import org.twdata.maven.mojoexecutor.MojoExecutor.*
+
+
+internal abstract class AbstractExecutor(
+  protected val components: MojoComponents
+) : Runnable {
+
+  protected val log: KLogger get() = components.logger
+
+  protected val environment: ExecutionEnvironment = components.environment
+}
+
 
 internal abstract class AbstractMojoExecutor(
   protected val groupId: String,
   protected val artifactId: String,
   protected val version: String,
-  protected val environment : ExecutionEnvironment
-) : Runnable {
+  components: MojoComponents
+) : AbstractExecutor(components) {
 
   protected val plugin: Plugin = plugin(
     groupId(groupId),
@@ -27,6 +39,6 @@ internal abstract class AbstractMojoExecutor(
 
 internal interface ElementSupplier {
 
-  fun element() : Element
+  fun element(): Element
 
 }

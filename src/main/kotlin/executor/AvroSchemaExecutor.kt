@@ -1,27 +1,36 @@
 package io.holixon.avro.maven.executor
 
-import org.twdata.maven.mojoexecutor.MojoExecutor.ExecutionEnvironment
+import io.holixon.avro.maven.AxonAvroGeneratorMojoParameters.AxonAvroGeneratorMojoConfiguration
+import io.holixon.avro.maven.maven.MojoComponents
 import org.twdata.maven.mojoexecutor.MojoExecutor.element
+import java.io.File
 
-internal class AvroSchemaExecutor(environment: ExecutionEnvironment) : AbstractMojoExecutor(
+internal class AvroSchemaExecutor(
+  components: MojoComponents
+) : AbstractMojoExecutor(
   groupId = "org.apache.avro",
   artifactId = "avro-maven-plugin",
   version = "1.11.0",
-  environment
+  components = components
 ) {
 
-  private lateinit var sourceDirectory: String
-  private lateinit var outputDirectory: String
-
-  fun sourceDirectory(sourceDirectory: String) = apply { this.sourceDirectory = sourceDirectory }
-  fun outputDirectory(outputDirectory: String) = apply { this.outputDirectory = outputDirectory }
+  private lateinit var _inputDirectory: File
+  private lateinit var _outputDirectory: File
 
   override fun run() = executeMojo(
     "schema",
     element("customConversions", "org.apache.avro.Conversions\$UUIDConversion"),
     element("stringType", "String"),
     element("createSetters", "false"),
-    element("sourceDirectory", sourceDirectory),
-    element("outputDirectory", outputDirectory)
+    element("sourceDirectory", _inputDirectory.path),
+    element("outputDirectory", _outputDirectory.path)
   )
+
+  fun inputDirectory(inputDirectory: File) = apply {
+    this._inputDirectory = inputDirectory
+  }
+
+  fun outputDirectory(outputDirectory: File) = apply {
+    this._outputDirectory = outputDirectory
+  }
 }

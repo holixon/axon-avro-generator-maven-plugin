@@ -1,4 +1,4 @@
-# axon-avro-generator-maven-plugin
+# meta-avro-generator-maven-plugin
 
 Template repository for usage in organizations: toolisticon, holunda-io, holixon...
 
@@ -39,3 +39,6 @@ Of course, you can also edit manually .... and do not forget to change this `REA
 
 * Check the release-notes.yml for details, but create the following labels: Type: dependencies, Type: bug, Type: documentation, Type: question, Type: enhancement
 
+## Useful information
+
+* [Mojo API specification](https://maven.apache.org/developers/mojo-api-specification.html)

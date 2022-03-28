@@ -2,8 +2,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.holixon.avro.maven.example</groupId>
-  <artifactId>axon-avro-generator-maven-plugin-example</artifactId>
+  <groupId>io.holixon.avro.maven._examples</groupId>
+  <artifactId>axon-avro-generator-maven-plugin-example-lib</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
@@ -15,8 +15,8 @@
     <avro.version>1.11.0</avro.version>
 
     <!-- SCHEMA DEFINITIONS -->
-    <schema-oms-global.version>0.0.1-SNAPSHOT</schema-oms-global.version>
-    <schema-oms-customer-management.version>0.0.1-SNAPSHOT</schema-oms-customer-management.version>
+    <schema-global.version>0.0.1-SNAPSHOT</schema-global.version>
+    <schema-service.version>0.0.1-SNAPSHOT</schema-service.version>
 
 
     <!-- TEST -->
@@ -248,13 +248,13 @@
               <goal>generate</goal>
             </goals>
             <configuration>
+              <debug>true</debug>
               <schemaArtifacts>
-                <artifact>com.fiege.oms.schema:schema-oms-global:${schema-oms-global.version}</artifact>
-                <artifact>com.fiege.oms.schema:schema-oms-customer-management:${schema-oms-customer-management.version}</artifact>
+                <artifact>io.holixon.avro.maven._examples:schema-service:${schema-global.version}</artifact>
+                <artifact>io.holixon.avro.maven._examples:schema-global:${schema-service.version}</artifact>
               </schemaArtifacts>
               <includeSchemas>
-                <schema>com.fiege.oms.customermanagement.command.CreateCustomerCommand</schema>
-                <schema>com.fiege.oms.global.query.LookupCustomerQueryResult</schema>
+                <schema>io.holixon.schema.bank.event.BankAccountCreatedEvent</schema>
               </includeSchemas>
             </configuration>
           </execution>
