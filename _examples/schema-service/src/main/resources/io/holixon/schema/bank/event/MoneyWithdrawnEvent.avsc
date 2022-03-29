@@ -1,0 +1,20 @@
+{
+  "type": "record",
+  "namespace": "io.holixon.schema.bank.event",
+  "name": "MoneyWithdrawnEvent",
+  "doc": "Money was withdrawn (at an ATM)",
+  "meta": {
+    "type": "event",
+    "revision": "1"
+  },
+  "fields": [
+    {
+      "name": "accountId",
+      "type": "string"
+    },
+    {
+      "name": "amount",
+      "type": "int"
+    }
+  ]
+}

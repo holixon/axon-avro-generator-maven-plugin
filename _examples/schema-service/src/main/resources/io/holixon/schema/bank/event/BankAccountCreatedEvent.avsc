@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "namespace": "io.holixon.schema.bank.event",
+  "name": "BankAccountCreatedEvent",
+  "doc": "A bank account has been created",
+  "meta": {
+    "type": "event",
+    "revision": "1"
+  },
+  "fields": [
+    {
+      "name": "accountId",
+      "type": "string"
+    },
+    {
+      "name": "initialBalance",
+      "type": "int"
+    },
+    {
+      "name": "maximalBalance",
+      "type": "int"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "namespace": "io.holixon.schema.global.query",
+  "name": "LookupCustomerQueryResult",
+  "doc": "An ID representing a customer",
+  "meta": {
+    "revision": "1",
+    "resultFor": "io.holixon.schema.global.query.LookupCustomerQuery"
+  },
+  "fields": [
+    {
+      "name": "mail",
+      "type": "string",
+    },
+    {
+      "name": "customerId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    }
+  ]
+}
