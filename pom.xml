@@ -18,7 +18,7 @@
 
     <!-- MAVEN -->
     <maven.version>3.8.4</maven.version>
-    <kotlin-mojo-helper.version>0.0.1-SNAPSHOT</kotlin-mojo-helper.version>
+    <kotlin-mojo-helper.version>0.0.1</kotlin-mojo-helper.version>
     <maven-plugin-api.version>${maven.version}</maven-plugin-api.version>
     <maven-plugin-annotations.version>3.6.4</maven-plugin-annotations.version>
     <mojo-executor.version>2.4.0</mojo-executor.version>

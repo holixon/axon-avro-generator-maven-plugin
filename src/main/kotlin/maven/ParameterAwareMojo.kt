@@ -1,5 +1,7 @@
 package io.holixon.avro.maven.maven
 
+import io.toolisticon.maven.mojo.ComponentAwareMojo
+
 /**
  * Define all your parameter injections here as private attributes.
  * Maven will inject them into this intermediate layer and you can

@@ -1,7 +1,6 @@
 package io.holixon.avro.maven.executor
 
-import io.holixon.avro.maven.AxonAvroGeneratorMojoParameters.AxonAvroGeneratorMojoConfiguration
-import io.holixon.avro.maven.maven.MojoComponents
+import io.toolisticon.maven.mojo.MojoComponents
 import org.twdata.maven.mojoexecutor.MojoExecutor.element
 import java.io.File
 

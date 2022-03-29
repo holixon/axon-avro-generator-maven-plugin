@@ -152,10 +152,7 @@ class AxonAvroGeneratorMojo : AxonAvroGeneratorMojoParameters() {
 
       components.project.artifacts.sortedBy { it.artifactId }
         .forEach { logger.error { " -  ${it.groupId}:::${it.artifactId}:::${it.version}   scope=${it.scope} " } }
-
-
     }
-
 
     logger.info { "--- downloading and unpacking schema artifacts" }
     UnpackDependencyExecutor(components)

@@ -1,9 +1,9 @@
 package io.holixon.avro.maven.executor
 
-import io.holixon.avro.maven.maven.MojoComponents
 import io.holixon.avro.maven.spoon.AxonRevisionAnnotationProcessor
 import io.holixon.avro.maven.spoon.SpoonApiBuilder
 import io.holixon.avro.maven.spoon.SpoonContext
+import io.toolisticon.maven.mojo.MojoComponents
 import java.io.File
 
 internal class SpoonExecutor(
