@@ -18,7 +18,7 @@
 
     <!-- MAVEN -->
     <maven.version>3.8.4</maven.version>
-    <kotlin-mojo-helper.version>0.0.1</kotlin-mojo-helper.version>
+    <kotlin-mojo-helper.version>0.0.2-SNAPSHOT</kotlin-mojo-helper.version>
     <maven-plugin-api.version>${maven.version}</maven-plugin-api.version>
     <maven-plugin-annotations.version>3.6.4</maven-plugin-annotations.version>
     <mojo-executor.version>2.4.0</mojo-executor.version>
@@ -572,18 +572,7 @@
           </executions>
         </plugin>
 
-        <!-- MAVEN PLUGIN -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-plugin-plugin</artifactId>
-          <version>3.6.4</version>
-          <executions>
-            <execution>
-              <id>default-descriptor</id>
-              <phase>process-classes</phase>
-            </execution>
-          </executions>
-        </plugin>
+
       </plugins>
     </pluginManagement>
 
@@ -604,9 +593,17 @@
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
       </plugin>
+      <!-- MAVEN PLUGIN -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.6.4</version>
+        <executions>
+          <execution>
+            <id>default-descriptor</id>
+            <phase>process-classes</phase>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

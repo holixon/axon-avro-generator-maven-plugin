@@ -6,8 +6,10 @@ import io.holixon.avro.maven.executor.AvroSchemaExecutor
 import io.holixon.avro.maven.executor.SpoonExecutor
 import io.holixon.avro.maven.executor.UnpackDependencyExecutor
 import io.holixon.avro.maven.maven.ParameterAwareMojo
+import io.toolisticon.maven.KotlinMojoHelper
 import io.toolisticon.maven.io.FileExt.createIfNotExists
 import io.toolisticon.maven.io.FileExt.subFolder
+import io.toolisticon.maven.mojo.MavenExt.hasRuntimeDependency
 import io.toolisticon.maven.mojo.RuntimeScopeDependenciesConfigurator
 import org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_SOURCES
 import org.apache.maven.plugins.annotations.Mojo
@@ -143,6 +145,7 @@ class AxonAvroGeneratorMojo : AxonAvroGeneratorMojoParameters() {
   }
 
   override fun execute() {
+    require(components.project.hasRuntimeDependency("org.apache.avro", "avro")) { "we want to generate classes from avro schemas (avsc files), so you need apache avro on the classpath" }
 
     if (configuration.debug) {
       logger.info { "comp: $components" }
@@ -152,6 +155,14 @@ class AxonAvroGeneratorMojo : AxonAvroGeneratorMojoParameters() {
 
       components.project.artifacts.sortedBy { it.artifactId }
         .forEach { logger.error { " -  ${it.groupId}:::${it.artifactId}:::${it.version}   scope=${it.scope} " } }
+
+      logger.info { """
+
+        This is the runtime class path:
+
+        ${components.project.runtimeClasspathElements}
+
+      """.trimIndent() }
     }
 
     logger.info { "--- downloading and unpacking schema artifacts" }

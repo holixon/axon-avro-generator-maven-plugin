@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.holixon.avro.maven._examples</groupId>
-  <artifactId>axon-avro-generator-maven-plugin-example-lib</artifactId>
+  <artifactId>app-using-the-plugin</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
