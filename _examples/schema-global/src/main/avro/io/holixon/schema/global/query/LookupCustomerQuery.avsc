@@ -11,7 +11,7 @@
   "fields": [
     {
       "name": "mail",
-      "type": "string",
+      "type": "string"
     }
   ]
 }

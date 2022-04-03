@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "namespace": "io.holixon.schema.local.event",
+  "name": "FooEvent",
+  "meta": {
+    "type": "event",
+    "revision": "1"
+  },
+  "fields": [
+    {
+      "name": "value",
+      "type": "string"
+    }
+  ]
+}

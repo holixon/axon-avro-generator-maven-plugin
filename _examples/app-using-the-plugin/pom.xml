@@ -249,6 +249,7 @@
             </goals>
             <configuration>
               <debug>true</debug>
+              <localSchemaDirectory>${project.basedir}/src/main/avro</localSchemaDirectory>
               <schemaArtifacts>
                 <artifact>io.holixon.avro.maven._examples:schema-service:${schema-global.version}</artifact>
                 <artifact>io.holixon.avro.maven._examples:schema-global:${schema-service.version}</artifact>

@@ -1,11 +1,11 @@
 package io.holixon.avro.maven.executor
 
-import io.toolisticon.maven.mojo.MojoComponents
+import io.toolisticon.maven.MojoContext
 import org.twdata.maven.mojoexecutor.MojoExecutor.element
 import java.io.File
 
 internal class AvroSchemaExecutor(
-  components: MojoComponents
+  components: MojoContext
 ) : AbstractMojoExecutor(
   groupId = "org.apache.avro",
   artifactId = "avro-maven-plugin",
