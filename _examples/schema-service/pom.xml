@@ -23,10 +23,8 @@
         <version>${generator-plugin.version}</version>
         <executions>
           <execution>
-            <id>deploy</id>
-            <phase>generate-resources</phase>
             <goals>
-              <goal>prepare</goal>
+              <goal>prepare-schema-deployment</goal>
             </goals>
           </execution>
         </executions>

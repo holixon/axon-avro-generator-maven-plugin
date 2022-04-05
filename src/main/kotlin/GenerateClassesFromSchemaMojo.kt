@@ -1,19 +1,19 @@
 package io.holixon.avro.maven
 
-import io.holixon.avro.maven.AxonAvroGeneratorMojo.Companion.GOAL
 import io.holixon.avro.maven.AxonAvroGeneratorMojoParameters.AxonAvroGeneratorMojoConfiguration
+import io.holixon.avro.maven.GenerateClassesFromSchemaMojo.Companion.GOAL
 import io.holixon.avro.maven.executor.AvroSchemaExecutor
 import io.holixon.avro.maven.executor.SpoonExecutor
 import io.holixon.avro.maven.maven.ParameterAwareMojo
-import io.toolisticon.maven.command.CopyResourcesCommand
-import io.toolisticon.maven.command.CopyResourcesCommand.CopyResource
-import io.toolisticon.maven.command.UnpackDependenciesCommand
-import io.toolisticon.maven.command.toArtifactItem
 import io.toolisticon.maven.io.FileExt.createIfNotExists
 import io.toolisticon.maven.io.FileExt.subFolder
 import io.toolisticon.maven.model.MavenArtifactParameter
 import io.toolisticon.maven.mojo.MavenExt.hasRuntimeDependency
 import io.toolisticon.maven.mojo.RuntimeScopeDependenciesConfigurator
+import io.toolisticon.maven.plugin.MavenDependencyPlugin
+import io.toolisticon.maven.plugin.MavenDependencyPlugin.UnpackDependenciesCommand.Companion.toArtifactItem
+import io.toolisticon.maven.plugin.MavenResourcesPlugin
+import io.toolisticon.maven.plugin.MavenResourcesPlugin.CopyResourcesCommand.CopyResource
 import org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_SOURCES
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
@@ -55,7 +55,7 @@ abstract class AxonAvroGeneratorMojoParameters : ParameterAwareMojo<AxonAvroGene
   @Parameter(
     property = "workDirectory",
     required = true,
-    defaultValue = "${AxonAvroGeneratorMojo.TARGET_DIRECTORY}/axon-avro-generator"
+    defaultValue = "${GenerateClassesFromSchemaMojo.TARGET_DIRECTORY}/axon-avro-generator"
   )
   private lateinit var workDirectory: File
 
@@ -65,7 +65,7 @@ abstract class AxonAvroGeneratorMojoParameters : ParameterAwareMojo<AxonAvroGene
   @Parameter(
     property = "outputDirectory",
     required = true,
-    defaultValue = "${AxonAvroGeneratorMojo.TARGET_DIRECTORY}/generated-sources/avro"
+    defaultValue = "${GenerateClassesFromSchemaMojo.TARGET_DIRECTORY}/generated-sources/avro"
   )
   private lateinit var outputDirectory: File
 
@@ -155,9 +155,9 @@ abstract class AxonAvroGeneratorMojoParameters : ParameterAwareMojo<AxonAvroGene
   configurator = RuntimeScopeDependenciesConfigurator.ROLE_HINT,
   requiresProject = true
 )
-class AxonAvroGeneratorMojo : AxonAvroGeneratorMojoParameters() {
+class GenerateClassesFromSchemaMojo : AxonAvroGeneratorMojoParameters() {
   companion object {
-    const val GOAL = "generate"
+    const val GOAL = "generate-classes-from-schema"
     const val TARGET_DIRECTORY = "\${project.build.directory}"
   }
 
@@ -191,7 +191,7 @@ class AxonAvroGeneratorMojo : AxonAvroGeneratorMojoParameters() {
 
     logger.info { "--- downloading and unpacking schema artifacts" }
     execute(
-      UnpackDependenciesCommand(
+      MavenDependencyPlugin.UnpackDependenciesCommand(
         outputDirectory = configuration.schemaCollectionDir,
         artifactItems = configuration.schemaArtifacts.map { MavenArtifactParameter(gav = it) }.map { it.toArtifactItem() }.toSet(),
         excludes = "META-INF/**"
@@ -201,7 +201,7 @@ class AxonAvroGeneratorMojo : AxonAvroGeneratorMojoParameters() {
     if (configuration.localSchemaDirectory != null) {
       logger.info { "--- copying local schemas" }
       execute(
-        CopyResourcesCommand(
+        MavenResourcesPlugin.CopyResourcesCommand(
           outputDirectory = configuration.schemaCollectionDir,
           resources = listOf(CopyResource(directory = configuration.localSchemaDirectory!!))
         )

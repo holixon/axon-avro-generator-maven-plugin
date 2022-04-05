@@ -1,13 +1,16 @@
 package io.holixon.avro.maven
 
-import io.holixon.avro.maven.PrepareAvroSchemasMojo.Companion.GOAL
-import io.toolisticon.maven.command.CopyResourcesCommand
-import io.toolisticon.maven.command.CopyResourcesCommand.CopyResource
+import io.holixon.avro.maven.PrepareSchemaDeploymentMojo.Companion.GOAL
+import io.holixon.avro.maven.avro.verifyAllAvscInRoot
+import io.toolisticon.maven.fn.CleanDirectory
 import io.toolisticon.maven.io.FileExt.createIfNotExists
 import io.toolisticon.maven.mojo.AbstractContextAwareMojo
 import io.toolisticon.maven.mojo.RuntimeScopeDependenciesConfigurator
+import io.toolisticon.maven.plugin.BuildHelperMavenPlugin
+import io.toolisticon.maven.plugin.MavenResourcesPlugin
+import io.toolisticon.maven.plugin.MavenResourcesPlugin.CopyResourcesCommand.CopyResource
+import io.toolisticon.maven.plugin.ResourceData
 import org.apache.avro.Schema
-import org.apache.maven.model.Dependency
 import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
@@ -23,9 +26,9 @@ import kotlin.io.path.name
   configurator = RuntimeScopeDependenciesConfigurator.ROLE_HINT,
   requiresProject = true
 )
-class PrepareAvroSchemasMojo : AbstractContextAwareMojo() {
+class PrepareSchemaDeploymentMojo : AbstractContextAwareMojo() {
   companion object {
-    const val GOAL = "prepare"
+    const val GOAL = "prepare-schema-deployment"
   }
 
   @Parameter(
@@ -41,46 +44,20 @@ class PrepareAvroSchemasMojo : AbstractContextAwareMojo() {
     property = "targetDirectory",
     required = true,
     readonly = true,
-    defaultValue = "\${project.build.outputDirectory}"
+    defaultValue = "\${project.build.directory}/generated-resources/avro"
   )
   private lateinit var targetDirectory: File
 
   override fun execute() {
-    //require(mojoContext.hasRuntimeDependency("org.apache.avro", "avro")) { "to validate schemas we need to have avro on the classpath" }
+    // check avro schema dir exists
     require(this::sourceDirectory.isInitialized && sourceDirectory.isDirectory && sourceDirectory.exists()) { "Source directory '$sourceDirectory' has to be an existing directory" }
 
-    mojoContext.mavenSession.currentProject.dependencies.add(Dependency().apply {
-      groupId = "org.apache.avro"
-      artifactId = "avro"
-      version = "1.11.0"
-    })
+    // read and verify all avsc schema files in source directory
+    val schemas = verifyAllAvscInRoot(sourceDirectory)
 
-    Files.walk(sourceDirectory.toPath()).forEach {
-      logger.info {
-        """
-
-        $it
-
-      """.trimIndent()
-      }
-    }
-
-    val schemas = Files.walk(sourceDirectory.toPath()).filter { it.name.endsWith(".avsc") }
-      .map {
-        try {
-          Schema.Parser().parse(it.toFile())
-        } catch (e: Exception) {
-          logger.error { "Error parsing ${it.name}: ${e.message}" }
-          throw e
-        }
-      }
-
-    schemas.forEach {
-      logger.info { "${it.namespace}:${it.name}" }
-    }
-
+    // copy schema files to generated resources
     mojoContext.execute(
-      CopyResourcesCommand(
+      MavenResourcesPlugin.CopyResourcesCommand(
         outputDirectory = targetDirectory.createIfNotExists(),
         resources = listOf(
           CopyResource(
@@ -91,5 +68,22 @@ class PrepareAvroSchemasMojo : AbstractContextAwareMojo() {
       )
     )
 
+    // remove .gitkeep and empty directories from generated-sources
+    CleanDirectory(
+      directory = targetDirectory,
+      deleteFiles = setOf(".gitkeep"),
+      deleteEmptyDirectories = true
+    ).run()
+
+    // add generated-source dir as resource directory, so it ends up in classes
+    mojoContext.execute(
+      BuildHelperMavenPlugin.AddResourceDirectoryCommand(
+        resource = ResourceData(directory = targetDirectory)
+      )
+    )
+
+    schemas.forEach {
+      logger.info { it.fullName }
+    }
   }
 }

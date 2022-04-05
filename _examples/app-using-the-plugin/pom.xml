@@ -245,7 +245,7 @@
             <id>dummy</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>generate</goal>
+              <goal>generate-classes-from-schema</goal>
             </goals>
             <configuration>
               <debug>true</debug>

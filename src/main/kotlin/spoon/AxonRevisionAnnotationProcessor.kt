@@ -33,7 +33,12 @@ class AxonRevisionAnnotationProcessor(
   }
 
   override fun process(type: CtClass<out SpecificRecordBase>) {
+
+    log.info { "processing: ${type.qualifiedName}" }
+    log.info { "processing2: ${type.getAllMetadata()}" }
+
     val meta = context.metaData(type)
+    log.info { "processing3: ${meta}" }
 
     meta.revision?.let { revision ->
       val annotation: CtAnnotation<Revision> = factory.annotation()

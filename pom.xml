@@ -8,7 +8,7 @@
   <packaging>maven-plugin</packaging>
 
   <name>${project.artifactId}</name>
-  <description>meta-avro-generator-maven-plugin</description>
+  <description>avro-avro-generator-maven-plugin</description>
   <url>https://github.com/holixon/axon-avro-generator-maven-plugin/</url>
 
   <properties>
