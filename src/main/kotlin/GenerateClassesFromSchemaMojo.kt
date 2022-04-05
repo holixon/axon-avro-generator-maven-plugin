@@ -5,8 +5,8 @@ import io.holixon.avro.maven.GenerateClassesFromSchemaMojo.Companion.GOAL
 import io.holixon.avro.maven.executor.AvroSchemaExecutor
 import io.holixon.avro.maven.executor.SpoonExecutor
 import io.holixon.avro.maven.maven.ParameterAwareMojo
-import io.toolisticon.maven.io.FileExt.createIfNotExists
-import io.toolisticon.maven.io.FileExt.subFolder
+import io.toolisticon.maven.fn.FileExt.createIfNotExists
+import io.toolisticon.maven.fn.FileExt.createSubFolder
 import io.toolisticon.maven.model.MavenArtifactParameter
 import io.toolisticon.maven.mojo.MavenExt.hasRuntimeDependency
 import io.toolisticon.maven.mojo.RuntimeScopeDependenciesConfigurator
@@ -107,11 +107,11 @@ abstract class AxonAvroGeneratorMojoParameters : ParameterAwareMojo<AxonAvroGene
     /**
      * Target of avsc schema files, either downloaded as schema-artifact or copied from src resources.
      */
-    val schemaCollectionDir: File = workDirectory.subFolder("schemas"),
+    val schemaCollectionDir: File = workDirectory.createSubFolder("schemas"),
     /**
      * Intermediate folder used by avro generator plugin.
      */
-    val avroGeneratedSourcesDir: File = workDirectory.subFolder("avro-generated"),
+    val avroGeneratedSourcesDir: File = workDirectory.createSubFolder("avro-generated"),
     val includeSchemas: LinkedHashSet<String>,
     val schemaArtifacts: LinkedHashSet<String>,
 

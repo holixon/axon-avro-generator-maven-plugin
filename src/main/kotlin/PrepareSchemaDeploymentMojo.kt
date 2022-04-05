@@ -3,21 +3,18 @@ package io.holixon.avro.maven
 import io.holixon.avro.maven.PrepareSchemaDeploymentMojo.Companion.GOAL
 import io.holixon.avro.maven.avro.verifyAllAvscInRoot
 import io.toolisticon.maven.fn.CleanDirectory
-import io.toolisticon.maven.io.FileExt.createIfNotExists
+import io.toolisticon.maven.fn.FileExt.createIfNotExists
 import io.toolisticon.maven.mojo.AbstractContextAwareMojo
 import io.toolisticon.maven.mojo.RuntimeScopeDependenciesConfigurator
 import io.toolisticon.maven.plugin.BuildHelperMavenPlugin
 import io.toolisticon.maven.plugin.MavenResourcesPlugin
 import io.toolisticon.maven.plugin.MavenResourcesPlugin.CopyResourcesCommand.CopyResource
 import io.toolisticon.maven.plugin.ResourceData
-import org.apache.avro.Schema
 import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
 import org.apache.maven.plugins.annotations.ResolutionScope
 import java.io.File
-import java.nio.file.Files
-import kotlin.io.path.name
 
 @Mojo(
   name = GOAL,

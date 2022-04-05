@@ -1,32 +1,23 @@
 package io.holixon.avro.maven
 
-import io.toolisticon.maven.io.FileExt.subFolder
+import io.toolisticon.maven.fn.FileExt.createSubFoldersFromPath
+import io.toolisticon.maven.fn.FileExt.writeString
 import java.io.File
-import java.io.PrintWriter
 
 object TestFixtures {
 
-  fun subPath(root:File, file:File) = file.path.removePrefix(root.path + "/")
+  fun subPath(root: File, file: File) = file.path.removePrefix(root.path + "/")
 
-  fun createFqnPath(root: File, fqn: String): File = fqn.split(".").fold(root) { file, part -> file.subFolder(part) }
-
-  fun createJavaFile(target:File, fqn: String, code:String): File {
+  fun createJavaFile(target: File, fqn: String, code: String): File {
     val tmpFqn = fqn.removeSuffix(".java")
 
     val classFile = tmpFqn.substringAfterLast(".") + ".java"
     val packagePath = tmpFqn.substringBeforeLast(".")
 
-    val directory = createFqnPath(target, packagePath)
+    val directory = target.createSubFoldersFromPath(packagePath)
 
-    val file = File("${directory.path}/$classFile")
-
-    PrintWriter(file).use {
-      it.write(TestFixtures.generatedBankAccountCreatedEvent_java)
-    }
-
-    return file
+    return target.writeString(packagePath, classFile, generatedBankAccountCreatedEvent_java)
   }
-
 
 
   val balanceChangedEventAvsc: String = """
