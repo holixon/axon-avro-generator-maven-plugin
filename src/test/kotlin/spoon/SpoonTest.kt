@@ -7,10 +7,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.io.PrintWriter
 import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
 import kotlin.io.path.isRegularFile
 import kotlin.streams.asSequence
 
@@ -26,7 +23,11 @@ internal class SpoonTest {
 
   @Test
   fun `create java file from string`() {
-    val file = TestFixtures.createJavaFile(sourceDirectory, "io.holixon.schema.bank.event.BankAccountCreatedEvent.java", TestFixtures.generatedBankAccountCreatedEvent_java)
+    val file = TestFixtures.createJavaFile(
+      sourceDirectory,
+      "io.holixon.schema.bank.event.BankAccountCreatedEvent.java",
+      TestFixtures.generatedBankAccountCreatedEvent_java
+    )
 
     val subPath = TestFixtures.subPath(sourceDirectory, file)
 
@@ -35,7 +36,12 @@ internal class SpoonTest {
 
   @Test
   fun `verify that axon revision annotation is added to generated source`() {
-    val file = TestFixtures.createJavaFile(sourceDirectory, "io.holixon.schema.bank.event.BankAccountCreatedEvent.java", TestFixtures.generatedBankAccountCreatedEvent_java)
+    // GIVEN event java source in sourceDirectory
+    TestFixtures.createJavaFile(
+      sourceDirectory,
+      "io.holixon.schema.bank.event.BankAccountCreatedEvent.java",
+      TestFixtures.generatedBankAccountCreatedEvent_java
+    )
 
     val spoonContext = SpoonContext(logger)
     val spoon = SpoonApiBuilder()
@@ -46,6 +52,7 @@ internal class SpoonTest {
       .processor(AxonRevisionAnnotationProcessor(spoonContext))
       .build()
 
+    // WHEN spoon runs
     spoon.run()
 
 
@@ -57,10 +64,9 @@ internal class SpoonTest {
       .map { it.name.removeSuffix(".java") to Files.readString(it.toPath()) }
       .toMap()
 
-    println(map)
-    println(map.size)
 
-    val eventSrc = map.get("BankAccountCreatedEvent")
+    // THEN the processed source contains revision annotation
+    val eventSrc: String = requireNotNull(map["BankAccountCreatedEvent"])
     assertThat(eventSrc).contains("""@Revision("1")""")
   }
 }
