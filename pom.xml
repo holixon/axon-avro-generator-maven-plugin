@@ -571,8 +571,6 @@
             </execution>
           </executions>
         </plugin>
-
-
       </plugins>
     </pluginManagement>
 
@@ -678,7 +676,6 @@
     <developerConnection>scm:git:git@github.com:holixon/axon-avro-generator-maven-plugin.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
-
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>

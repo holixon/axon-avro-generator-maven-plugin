@@ -3,15 +3,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.holixon.avro.maven._examples</groupId>
-  <artifactId>schema-global</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <parent>
+    <groupId>io.holixon.avro.maven._examples</groupId>
+    <artifactId>_examples</artifactId>
+    <version>EXAMPLE</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
 
-  <properties>
-    <java.version>11</java.version>
-    <avro.version>1.11.0</avro.version>
-    <generator-plugin.version>0.0.1-SNAPSHOT</generator-plugin.version>
-  </properties>
+  <artifactId>schema-global</artifactId>
 
   <dependencies>
     <dependency>
@@ -28,7 +27,6 @@
       <plugin>
         <groupId>io.holixon.avro.maven</groupId>
         <artifactId>axon-avro-generator-maven-plugin</artifactId>
-        <version>${generator-plugin.version}</version>
         <executions>
           <execution>
             <id>deploy</id>
@@ -36,16 +34,8 @@
             <goals>
               <goal>prepare-schema-deployment</goal>
             </goals>
-
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro</artifactId>
-            <version>${avro.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
   </build>

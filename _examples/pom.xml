@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.holixon.avro.maven._examples</groupId>
+  <artifactId>_examples</artifactId>
+  <version>EXAMPLE</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>app-using-the-plugin</module>
+    <module>schema-global</module>
+    <module>schema-service</module>
+  </modules>
+
+  <properties>
+    <java.version>11</java.version>
+    <avro.version>1.11.0</avro.version>
+    <generator-plugin.version>0.0.2-SNAPSHOT</generator-plugin.version>
+    <!--    <generator-plugin.version>0.0.2</generator-plugin.version>-->
+  </properties>
+
+  <build>
+    <defaultGoal>clean package</defaultGoal>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>io.holixon.avro.maven</groupId>
+          <artifactId>axon-avro-generator-maven-plugin</artifactId>
+          <version>${generator-plugin.version}</version>
+
+          <!-- TODO do we need this? or can we inherit avro from project that uses this plugin? -->
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.avro</groupId>
+              <artifactId>avro</artifactId>
+              <version>${avro.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
