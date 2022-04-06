@@ -34,6 +34,11 @@
             <goals>
               <goal>prepare-schema-deployment</goal>
             </goals>
+            <configuration>
+              <markdownGeneration>
+                <enable>true</enable>
+              </markdownGeneration>
+            </configuration>
           </execution>
         </executions>
       </plugin>
