@@ -5,7 +5,7 @@
   <parent>
     <groupId>io.holixon.avro.maven._examples</groupId>
     <artifactId>_examples</artifactId>
-    <version>EXAMPLE</version>
+    <version>1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -19,6 +19,7 @@
     <schema-global.version>${project.version}</schema-global.version>
     <schema-service.version>${project.version}</schema-service.version>
 
+    <jmolecules.version>1.4.0</jmolecules.version>
 
     <!-- TEST -->
     <kotlin-logging.version>2.1.21</kotlin-logging.version>
@@ -67,6 +68,38 @@
       <groupId>org.axonframework</groupId>
       <artifactId>axon-messaging</artifactId>
       <version>4.5.8</version>
+    </dependency>
+
+    <!-- include dependencies to force compilation order -->
+    <!-- not required for actual execution -->
+    <dependency>
+      <groupId>io.holixon.avro.maven._examples</groupId>
+      <artifactId>schema-service</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.holixon.avro.maven._examples</groupId>
+      <artifactId>schema-global</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- runtime dependencies on jmolecules -->
+    <dependency>
+      <groupId>org.jmolecules</groupId>
+      <artifactId>jmolecules-ddd</artifactId>
+      <version>${jmolecules.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jmolecules</groupId>
+      <artifactId>jmolecules-cqrs-architecture</artifactId>
+      <version>${jmolecules.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jmolecules</groupId>
+      <artifactId>jmolecules-events</artifactId>
+      <version>${jmolecules.version}</version>
     </dependency>
 
     <!-- TEST -->

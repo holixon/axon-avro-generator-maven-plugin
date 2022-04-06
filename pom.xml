@@ -25,6 +25,7 @@
 
     <avro.version>1.11.0</avro.version>
     <axon.version>4.5.8</axon.version>
+    <jmolecules.version>1.4.0</jmolecules.version>
     <spoon.version>10.0.0</spoon.version>
 
     <!-- TEST -->
@@ -111,6 +112,25 @@
       <groupId>org.axonframework</groupId>
       <artifactId>axon-messaging</artifactId>
       <version>${axon.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jmolecules</groupId>
+      <artifactId>jmolecules-ddd</artifactId>
+      <version>${jmolecules.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jmolecules</groupId>
+      <artifactId>jmolecules-cqrs-architecture</artifactId>
+      <version>${jmolecules.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jmolecules</groupId>
+      <artifactId>jmolecules-events</artifactId>
+      <version>${jmolecules.version}</version>
       <scope>provided</scope>
     </dependency>
 

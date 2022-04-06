@@ -1,35 +1,9 @@
 package io.holixon.avro.maven.spoon
 
-import io.holixon.avro.maven.avro.RecordMetaData
-import io.holixon.avro.maven.avro.schemaFieldToRecordMetadata
-import mu.KLogger
-import org.apache.avro.Schema
-import org.apache.avro.specific.SpecificRecordBase
 import spoon.Launcher
 import spoon.SpoonAPI
 import spoon.processing.Processor
-import spoon.reflect.declaration.CtClass
 import java.io.File
-import java.util.concurrent.ConcurrentHashMap
-
-class SpoonContext(
-  val logger: KLogger
-) {
-
-  private val schemas: MutableMap<CtClass<out SpecificRecordBase>, Schema> = ConcurrentHashMap<CtClass<out SpecificRecordBase>, Schema>()
-  private val metaData: ConcurrentHashMap<CtClass<out SpecificRecordBase>, RecordMetaData> =
-    ConcurrentHashMap<CtClass<out SpecificRecordBase>, RecordMetaData>()
-
-  fun schema(type: CtClass<out SpecificRecordBase>) = schemas.computeIfAbsent(type) {
-    schemaFieldToRecordMetadata(it.getField("SCHEMA\$").defaultExpression.toString())
-  }
-
-  fun metaData(type: CtClass<out SpecificRecordBase>) = metaData.computeIfAbsent(type) {
-    val schema = schema(it)
-
-    RecordMetaData(schema)
-  }
-}
 
 class SpoonApiBuilder {
 

@@ -5,7 +5,7 @@
   "doc": "Money was withdrawn (at an ATM)",
   "meta": {
     "type": "event",
-    "revision": "1"
+    "revision": "21"
   },
   "fields": [
     {

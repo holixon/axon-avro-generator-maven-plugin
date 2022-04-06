@@ -1,20 +1,21 @@
 package io.holixon.avro.maven.executor
 
-import io.holixon.avro.maven.spoon.AxonRevisionAnnotationProcessor
-import io.holixon.avro.maven.spoon.SpoonApiBuilder
-import io.holixon.avro.maven.spoon.SpoonContext
+import io.holixon.avro.maven.fn.HasRuntimeDependencyPredicate
+import io.holixon.avro.maven.spoon.*
 import io.toolisticon.maven.MojoContext
 import java.io.File
 
 internal class SpoonExecutor(
-  components: MojoContext
-) : AbstractExecutor(components) {
+  mojoContext: MojoContext
+) : AbstractExecutor(mojoContext) {
 
   private lateinit var _inputDirectory: File
   private lateinit var _outputDirectory: File
 
+  private val hasRuntimeDependencyPredicate = HasRuntimeDependencyPredicate(mojoContext.mavenProject)
+
   override fun run() {
-    val spoonContext = SpoonContext(log)
+    val spoonContext = SpoonContext(log, hasRuntimeDependencyPredicate)
 
     val builder = SpoonApiBuilder()
       .isAutoImports(true)
@@ -23,10 +24,13 @@ internal class SpoonExecutor(
       .inputDirectory(_inputDirectory)
       .outputDirectory(_outputDirectory)
       .classPathElements(components.classpathElements)
-      .processor(AxonRevisionAnnotationProcessor(spoonContext))
 
-    val launcher = builder.build()
-    launcher.run()
+      .processor(AxonRevisionAnnotationProcessor(spoonContext))
+      .processor(JMoleculesValueObjectAnnotationProcessor(spoonContext))
+      .processor(JMoleculesCommandAnnotationProcessor(spoonContext))
+      .processor(JMoleculesDomainEventAnnotationProcessor(spoonContext))
+
+    builder.build().run()
   }
 
   fun inputDirectory(inputDirectory: File) = apply {

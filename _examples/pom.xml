@@ -5,7 +5,7 @@
 
   <groupId>io.holixon.avro.maven._examples</groupId>
   <artifactId>_examples</artifactId>
-  <version>EXAMPLE</version>
+  <version>1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -17,8 +17,7 @@
   <properties>
     <java.version>11</java.version>
     <avro.version>1.11.0</avro.version>
-    <generator-plugin.version>0.0.2-SNAPSHOT</generator-plugin.version>
-    <!--    <generator-plugin.version>0.0.2</generator-plugin.version>-->
+    <generator-plugin.version>0.0.3-SNAPSHOT</generator-plugin.version>
   </properties>
 
   <build>

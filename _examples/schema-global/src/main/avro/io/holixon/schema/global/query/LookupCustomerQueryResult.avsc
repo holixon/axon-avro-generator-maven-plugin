@@ -4,7 +4,8 @@
   "name": "LookupCustomerQueryResult",
   "doc": "An ID representing a customer",
   "meta": {
-    "revision": "1",
+    "revision": "123",
+    "type": "queryResult",
     "resultFor": "io.holixon.schema.global.query.LookupCustomerQuery"
   },
   "fields": [

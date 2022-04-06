@@ -5,7 +5,7 @@
   "doc": "Query to look up a customer ID",
   "meta": {
     "type": "query",
-    "revision": "1",
+    "revision": "456",
     "result": "io.holixon.schema.global.query.LookupCustomerQueryResult"
   },
   "fields": [

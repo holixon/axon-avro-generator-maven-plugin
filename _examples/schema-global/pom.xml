@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holixon.avro.maven._examples</groupId>
     <artifactId>_examples</artifactId>
-    <version>EXAMPLE</version>
+    <version>1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 

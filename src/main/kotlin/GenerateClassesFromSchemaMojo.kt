@@ -192,6 +192,7 @@ class GenerateClassesFromSchemaMojo : AxonAvroGeneratorMojoParameters() {
     }
 
 
+
 //    fun includeSchemas(includeSchemas: Set<String>) = apply {
 //      this.includeSchemas = includeSchemas.map { it.trim() }
 //        .map { it.removeSuffix(".avsc") }
