@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.holixon.avro.maven._examples</groupId>
-  <artifactId>axon-avro-generator-maven-plugin-example-lib</artifactId>
+  <artifactId>app-using-the-plugin</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
@@ -245,10 +245,11 @@
             <id>dummy</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>generate</goal>
+              <goal>generate-classes-from-schema</goal>
             </goals>
             <configuration>
               <debug>true</debug>
+              <localSchemaDirectory>${project.basedir}/src/main/avro</localSchemaDirectory>
               <schemaArtifacts>
                 <artifact>io.holixon.avro.maven._examples:schema-service:${schema-global.version}</artifact>
                 <artifact>io.holixon.avro.maven._examples:schema-global:${schema-service.version}</artifact>

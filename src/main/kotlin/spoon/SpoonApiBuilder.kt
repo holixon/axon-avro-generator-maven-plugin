@@ -1,6 +1,7 @@
 package io.holixon.avro.maven.spoon
 
-import io.holixon.avro.maven.meta.RecordMetadata
+import io.holixon.avro.maven.avro.RecordMetaData
+import io.holixon.avro.maven.avro.schemaFieldToRecordMetadata
 import mu.KLogger
 import org.apache.avro.Schema
 import org.apache.avro.specific.SpecificRecordBase
@@ -16,31 +17,17 @@ class SpoonContext(
 ) {
 
   private val schemas: MutableMap<CtClass<out SpecificRecordBase>, Schema> = ConcurrentHashMap<CtClass<out SpecificRecordBase>, Schema>()
-  private val metaData: ConcurrentHashMap<CtClass<out SpecificRecordBase>, RecordMetadata> =
-    ConcurrentHashMap<CtClass<out SpecificRecordBase>, RecordMetadata>()
+  private val metaData: ConcurrentHashMap<CtClass<out SpecificRecordBase>, RecordMetaData> =
+    ConcurrentHashMap<CtClass<out SpecificRecordBase>, RecordMetaData>()
 
   fun schema(type: CtClass<out SpecificRecordBase>) = schemas.computeIfAbsent(type) {
-    // TODO: schema is a static method on the record class, so we do not need a newInstance here ... tbd
-
-    val s = it.getField("SCHEMA\$").defaultExpression.toString()
-      .removePrefix("new Schema.Parser().parse(\"")
-      .removeSuffix("\")")
-      .replace("""\"""", """"""")
-
-
-
-    logger.info { "FIELD $s" }
-
-    val schema = Schema.Parser().parse(s)
-    logger.info { "schema: $schema" }
-    schema
-//    it.newInstance().schema
+    schemaFieldToRecordMetadata(it.getField("SCHEMA\$").defaultExpression.toString())
   }
 
   fun metaData(type: CtClass<out SpecificRecordBase>) = metaData.computeIfAbsent(type) {
     val schema = schema(it)
 
-    RecordMetadata(schema)
+    RecordMetaData(schema)
   }
 }
 

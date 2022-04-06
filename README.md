@@ -1,4 +1,4 @@
-# meta-avro-generator-maven-plugin
+# avro-avro-generator-maven-plugin
 
 Template repository for usage in organizations: toolisticon, holunda-io, holixon...
 

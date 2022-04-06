@@ -9,9 +9,40 @@
 
   <properties>
     <java.version>11</java.version>
+    <avro.version>1.11.0</avro.version>
+    <generator-plugin.version>0.0.2-SNAPSHOT</generator-plugin.version>
+<!--    <generator-plugin.version>0.0.2</generator-plugin.version>-->
   </properties>
 
   <build>
     <defaultGoal>clean package</defaultGoal>
+
+    <plugins>
+      <plugin>
+        <groupId>io.holixon.avro.maven</groupId>
+        <artifactId>axon-avro-generator-maven-plugin</artifactId>
+        <version>${generator-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-schema-deployment</goal>
+            </goals>
+            <configuration>
+              <markdownGeneration>
+                <enable>false</enable>
+                <readmeFile>${project.basedir}/README.md</readmeFile>
+              </markdownGeneration>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+            <version>${avro.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
   </build>
 </project>

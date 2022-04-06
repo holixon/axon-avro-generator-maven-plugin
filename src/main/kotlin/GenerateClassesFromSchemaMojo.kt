@@ -1,14 +1,19 @@
 package io.holixon.avro.maven
 
-import io.holixon.avro.maven.AxonAvroGeneratorMojo.Companion.GOAL
 import io.holixon.avro.maven.AxonAvroGeneratorMojoParameters.AxonAvroGeneratorMojoConfiguration
+import io.holixon.avro.maven.GenerateClassesFromSchemaMojo.Companion.GOAL
 import io.holixon.avro.maven.executor.AvroSchemaExecutor
 import io.holixon.avro.maven.executor.SpoonExecutor
-import io.holixon.avro.maven.executor.UnpackDependencyExecutor
 import io.holixon.avro.maven.maven.ParameterAwareMojo
-import io.toolisticon.maven.io.FileExt.createIfNotExists
-import io.toolisticon.maven.io.FileExt.subFolder
+import io.toolisticon.maven.fn.FileExt.createIfNotExists
+import io.toolisticon.maven.fn.FileExt.createSubFolder
+import io.toolisticon.maven.model.MavenArtifactParameter
+import io.toolisticon.maven.mojo.MavenExt.hasRuntimeDependency
 import io.toolisticon.maven.mojo.RuntimeScopeDependenciesConfigurator
+import io.toolisticon.maven.plugin.MavenDependencyPlugin
+import io.toolisticon.maven.plugin.MavenDependencyPlugin.UnpackDependenciesCommand.Companion.toArtifactItem
+import io.toolisticon.maven.plugin.MavenResourcesPlugin
+import io.toolisticon.maven.plugin.MavenResourcesPlugin.CopyResourcesCommand.CopyResource
 import org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_SOURCES
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
@@ -33,13 +38,24 @@ abstract class AxonAvroGeneratorMojoParameters : ParameterAwareMojo<AxonAvroGene
   private var includeSchemas: List<String> = emptyList()
 
   /**
+   * If you need to combine your local schema definitions
+   */
+  @Parameter(
+    property = "localSchemaDirectory",
+    defaultValue = "\${project.basedir}/src/main/avro",
+    required = false,
+    readonly = true
+  )
+  private lateinit var localSchemaDirectory: File
+
+  /**
    * The base working directory. The mojo will create sub directories inside the working directory
    * as needed.
    */
   @Parameter(
     property = "workDirectory",
     required = true,
-    defaultValue = "${AxonAvroGeneratorMojo.TARGET_DIRECTORY}/axon-avro-generator"
+    defaultValue = "${GenerateClassesFromSchemaMojo.TARGET_DIRECTORY}/axon-avro-generator"
   )
   private lateinit var workDirectory: File
 
@@ -49,7 +65,7 @@ abstract class AxonAvroGeneratorMojoParameters : ParameterAwareMojo<AxonAvroGene
   @Parameter(
     property = "outputDirectory",
     required = true,
-    defaultValue = "${AxonAvroGeneratorMojo.TARGET_DIRECTORY}/generated-sources/avro"
+    defaultValue = "${GenerateClassesFromSchemaMojo.TARGET_DIRECTORY}/generated-sources/avro"
   )
   private lateinit var outputDirectory: File
 
@@ -91,13 +107,15 @@ abstract class AxonAvroGeneratorMojoParameters : ParameterAwareMojo<AxonAvroGene
     /**
      * Target of avsc schema files, either downloaded as schema-artifact or copied from src resources.
      */
-    val schemaCollectionDir: File = workDirectory.subFolder("schemas"),
+    val schemaCollectionDir: File = workDirectory.createSubFolder("schemas"),
     /**
      * Intermediate folder used by avro generator plugin.
      */
-    val avroGeneratedSourcesDir: File = workDirectory.subFolder("avro-generated"),
+    val avroGeneratedSourcesDir: File = workDirectory.createSubFolder("avro-generated"),
     val includeSchemas: LinkedHashSet<String>,
-    val schemaArtifacts: LinkedHashSet<String>
+    val schemaArtifacts: LinkedHashSet<String>,
+
+    val localSchemaDirectory: File? = null
   )
 
   override val configuration: AxonAvroGeneratorMojoConfiguration by lazy {
@@ -124,7 +142,8 @@ abstract class AxonAvroGeneratorMojoParameters : ParameterAwareMojo<AxonAvroGene
       outputDirectory = outputDirectory.createIfNotExists(),
       workDirectory = workDirectory.createIfNotExists(),
       schemaArtifacts = linkedSetOf(*schemaArtifacts.toTypedArray()),
-      includeSchemas = linkedSetOf(*includeSchemas.toTypedArray())
+      includeSchemas = linkedSetOf(*includeSchemas.toTypedArray()),
+      localSchemaDirectory = localSchemaDirectory
     )
   }
 }
@@ -136,40 +155,61 @@ abstract class AxonAvroGeneratorMojoParameters : ParameterAwareMojo<AxonAvroGene
   configurator = RuntimeScopeDependenciesConfigurator.ROLE_HINT,
   requiresProject = true
 )
-class AxonAvroGeneratorMojo : AxonAvroGeneratorMojoParameters() {
+class GenerateClassesFromSchemaMojo : AxonAvroGeneratorMojoParameters() {
   companion object {
-    const val GOAL = "generate"
+    const val GOAL = "generate-classes-from-schema"
     const val TARGET_DIRECTORY = "\${project.build.directory}"
   }
 
   override fun execute() {
+    require(
+      mojoContext.mavenProject?.hasRuntimeDependency(
+        "org.apache.avro",
+        "avro"
+      ) ?: false
+    ) { "we want to generate classes from avro schemas (avsc files), so you need apache avro on the classpath" }
 
-    if (configuration.debug) {
-      logger.info { "comp: $components" }
-      logger.info { "con: $configuration" }
-
-      logger.error {  "artifactMap: ${components.project.artifactMap}" }
-
-      components.project.artifacts.sortedBy { it.artifactId }
-        .forEach { logger.error { " -  ${it.groupId}:::${it.artifactId}:::${it.version}   scope=${it.scope} " } }
-    }
 
     logger.info { "--- downloading and unpacking schema artifacts" }
-    UnpackDependencyExecutor(components)
-      .outputDirectory(configuration.schemaCollectionDir)
-      .schemaArtifacts(configuration.schemaArtifacts)
-      .includeSchemas(configuration.includeSchemas)
-      .run()
+    execute(
+      MavenDependencyPlugin.UnpackDependenciesCommand(
+        outputDirectory = configuration.schemaCollectionDir,
+        artifactItems = configuration.schemaArtifacts.map { MavenArtifactParameter(gav = it) }.map { it.toArtifactItem() }.toSet(),
+        excludes = "META-INF/**"
+      )
+    )
+
+    if (configuration.localSchemaDirectory != null) {
+      logger.info { "--- copying local schemas" }
+      execute(
+        MavenResourcesPlugin.CopyResourcesCommand(
+          outputDirectory = configuration.schemaCollectionDir,
+          resources = listOf(CopyResource(directory = configuration.localSchemaDirectory!!))
+        )
+      )
+    } else {
+      logger.debug { "--- skipping local schemas" }
+    }
+
+
+//    fun includeSchemas(includeSchemas: Set<String>) = apply {
+//      this.includeSchemas = includeSchemas.map { it.trim() }
+//        .map { it.removeSuffix(".avsc") }
+//        .map { it.replace(".", "/") }
+//        .map { it.plus(".avsc") }
+//        .toSortedSet()
+//    }
+
 
     logger.info { "--- generate classes from avro schema" }
-    AvroSchemaExecutor(components)
+    AvroSchemaExecutor(mojoContext)
       .inputDirectory(configuration.schemaCollectionDir)
       .outputDirectory(configuration.avroGeneratedSourcesDir)
       .run()
 
 
     logger.info { "--- spoon process generated sources" }
-    SpoonExecutor(components)
+    SpoonExecutor(mojoContext)
       .inputDirectory(configuration.avroGeneratedSourcesDir)
       .outputDirectory(configuration.outputDirectory)
       .run()

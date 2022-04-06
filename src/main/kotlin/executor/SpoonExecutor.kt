@@ -3,11 +3,11 @@ package io.holixon.avro.maven.executor
 import io.holixon.avro.maven.spoon.AxonRevisionAnnotationProcessor
 import io.holixon.avro.maven.spoon.SpoonApiBuilder
 import io.holixon.avro.maven.spoon.SpoonContext
-import io.toolisticon.maven.mojo.MojoComponents
+import io.toolisticon.maven.MojoContext
 import java.io.File
 
 internal class SpoonExecutor(
-  components: MojoComponents
+  components: MojoContext
 ) : AbstractExecutor(components) {
 
   private lateinit var _inputDirectory: File

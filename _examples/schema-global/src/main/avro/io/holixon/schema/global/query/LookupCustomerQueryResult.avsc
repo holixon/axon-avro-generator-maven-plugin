@@ -10,7 +10,7 @@
   "fields": [
     {
       "name": "mail",
-      "type": "string",
+      "type": "string"
     },
     {
       "name": "customerId",

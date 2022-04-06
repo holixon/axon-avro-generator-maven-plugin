@@ -1,8 +1,8 @@
-package io.holixon.avro.maven.meta
+package io.holixon.avro.maven.avro
 
 import org.apache.avro.Schema
 
-data class RecordMetadata(
+data class RecordMetaData(
   val namespace: String,
   val name: String,
   val fullName: String,
@@ -10,23 +10,23 @@ data class RecordMetadata(
   val type: DDDType?
 ) {
   companion object {
-    const val META = "meta"
+    const val KEY = "meta"
 
     object KEYS {
       const val REVISION = "revision"
       const val TYPE = "type"
     }
 
-    operator fun invoke(schema: Schema): RecordMetadata {
+    operator fun invoke(schema: Schema): RecordMetaData {
 
       @Suppress("UNCHECKED_CAST")
-      val meta: Map<String, Any> = if (schema.objectProps.containsKey(META)) {
-        schema.objectProps[META] as Map<String, Any>
+      val meta: Map<String, Any> = if (schema.objectProps.containsKey(KEY)) {
+        schema.objectProps[KEY] as Map<String, Any>
       } else {
         emptyMap()
       }
 
-      return RecordMetadata(
+      return RecordMetaData(
         namespace = schema.namespace,
         name = schema.name,
         fullName = schema.fullName,

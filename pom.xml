@@ -4,21 +4,21 @@
 
   <groupId>io.holixon.avro.maven</groupId>
   <artifactId>axon-avro-generator-maven-plugin</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>maven-plugin</packaging>
 
   <name>${project.artifactId}</name>
-  <description>meta-avro-generator-maven-plugin</description>
+  <description>avro-avro-generator-maven-plugin</description>
   <url>https://github.com/holixon/axon-avro-generator-maven-plugin/</url>
 
   <properties>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <kotlin.version>1.6.10</kotlin.version>
+    <kotlin.version>1.6.20</kotlin.version>
     <java.version>11</java.version>
 
     <!-- MAVEN -->
     <maven.version>3.8.4</maven.version>
-    <kotlin-mojo-helper.version>0.0.1</kotlin-mojo-helper.version>
+    <kotlin-mojo-helper.version>0.0.2</kotlin-mojo-helper.version>
     <maven-plugin-api.version>${maven.version}</maven-plugin-api.version>
     <maven-plugin-annotations.version>3.6.4</maven-plugin-annotations.version>
     <mojo-executor.version>2.4.0</mojo-executor.version>
@@ -572,18 +572,7 @@
           </executions>
         </plugin>
 
-        <!-- MAVEN PLUGIN -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-plugin-plugin</artifactId>
-          <version>3.6.4</version>
-          <executions>
-            <execution>
-              <id>default-descriptor</id>
-              <phase>process-classes</phase>
-            </execution>
-          </executions>
-        </plugin>
+
       </plugins>
     </pluginManagement>
 
@@ -604,9 +593,17 @@
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
       </plugin>
+      <!-- MAVEN PLUGIN -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.6.4</version>
+        <executions>
+          <execution>
+            <id>default-descriptor</id>
+            <phase>process-classes</phase>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
