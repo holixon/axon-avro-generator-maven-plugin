@@ -1,9 +1,15 @@
 package io.holixon.avro.maven
 
 import io.holixon.avro.maven.PrepareSchemaDeploymentMojo.Companion.GOAL
+import io.holixon.avro.maven.avro.RecordMetaData
+import io.holixon.avro.maven.avro.SchemaAndFile
 import io.holixon.avro.maven.avro.verifyAllAvscInRoot
+import io.holixon.avro.maven.executor.ReadMeMarkdownGenerator
 import io.toolisticon.maven.fn.CleanDirectory
+import io.toolisticon.maven.fn.FileExt.append
 import io.toolisticon.maven.fn.FileExt.createIfNotExists
+import io.toolisticon.maven.fn.FileExt.readString
+import io.toolisticon.maven.fn.FileExt.removeRoot
 import io.toolisticon.maven.mojo.AbstractContextAwareMojo
 import io.toolisticon.maven.mojo.RuntimeScopeDependenciesConfigurator
 import io.toolisticon.maven.plugin.BuildHelperMavenPlugin
@@ -14,6 +20,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
 import org.apache.maven.plugins.annotations.ResolutionScope
+import org.apache.maven.project.MavenProject
 import java.io.File
 
 @Mojo(
@@ -36,6 +43,13 @@ class PrepareSchemaDeploymentMojo : AbstractContextAwareMojo() {
   )
   private lateinit var sourceDirectory: File
 
+  @Parameter(
+    property = "markdownGeneration",
+    required = false,
+    readonly = true
+  )
+  private val markdownGeneration: MarkdownGenerationConfig = MarkdownGenerationConfig()
+
 
   @Parameter(
     property = "targetDirectory",
@@ -49,7 +63,8 @@ class PrepareSchemaDeploymentMojo : AbstractContextAwareMojo() {
     // check avro schema dir exists
     require(this::sourceDirectory.isInitialized && sourceDirectory.isDirectory && sourceDirectory.exists()) { "Source directory '$sourceDirectory' has to be an existing directory" }
 
-    // read and verify all avsc schema files in source directory
+
+    // read and verify all avsc schema files in source directory, this throws exceptions on the first schema that fails
     val schemas = verifyAllAvscInRoot(sourceDirectory)
 
     // copy schema files to generated resources
@@ -79,8 +94,30 @@ class PrepareSchemaDeploymentMojo : AbstractContextAwareMojo() {
       )
     )
 
-    schemas.forEach {
-      logger.info { it.fullName }
+    if (markdownGeneration.enable) {
+      val readmeFile = requireNotNull( markdownGeneration.resolve(mojoContext.mavenProject).readmeFile)
+      ReadMeMarkdownGenerator(
+        logger = logger,
+        enabled = markdownGeneration.enable,
+        readmeFile = readmeFile,
+        schemaAndFiles = schemas,
+        projectBaseDir = requireNotNull(mojoContext.mavenProject).basedir
+      ).run()
+    }
+  }
+
+
+
+  data class MarkdownGenerationConfig(
+    var enable : Boolean = false,
+    var readmeFile: File? = null
+  ) {
+    companion object {
+      const val DEFAULT_README = "\${project.basedir}/README.md"
+    }
+
+    fun resolve(mavenProject: MavenProject?) = if (mavenProject == null || readmeFile != null) this else {
+      copy(readmeFile = mavenProject.basedir.append("README.md"))
     }
   }
 }

@@ -169,25 +169,6 @@ class GenerateClassesFromSchemaMojo : AxonAvroGeneratorMojoParameters() {
       ) ?: false
     ) { "we want to generate classes from avro schemas (avsc files), so you need apache avro on the classpath" }
 
-    if (configuration.debug) {
-      logger.info { "comp: $mojoContext" }
-      logger.info { "con: $configuration" }
-
-      logger.error { "artifactMap: ${mojoContext.mavenProject?.artifactMap}" }
-
-      mojoContext.mavenProject?.artifacts?.sortedBy { it.artifactId }
-        ?.forEach { logger.error { " -  ${it.groupId}:::${it.artifactId}:::${it.version}   scope=${it.scope} " } }
-
-      logger.info {
-        """
-
-        This is the runtime class path:
-
-        ${mojoContext.mavenProject?.runtimeClasspathElements}
-
-      """.trimIndent()
-      }
-    }
 
     logger.info { "--- downloading and unpacking schema artifacts" }
     execute(

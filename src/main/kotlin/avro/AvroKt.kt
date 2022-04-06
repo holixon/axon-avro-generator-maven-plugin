@@ -49,9 +49,17 @@ fun verifyPathAndSchemaFqnMatches(rootDirectory: File, avscFile: File, parser: S
   return schema
 }
 
-fun verifyAllAvscInRoot(rootDirectory: File, parser: Schema.Parser = Schema.Parser()): List<Schema> = Files.walk(rootDirectory.toPath())
+data class SchemaAndFile(val schema: Schema, val file: File, val sourceDirectory: File)
+
+fun verifyAllAvscInRoot(rootDirectory: File, parser: Schema.Parser = Schema.Parser()): List<SchemaAndFile> = Files.walk(rootDirectory.toPath())
   .filter { it.isRegularFile() && it.name.endsWith(".avsc") }
-  .map { verifyPathAndSchemaFqnMatches(rootDirectory, it.toFile(), parser) }
+  .map {
+    SchemaAndFile(
+      schema = verifyPathAndSchemaFqnMatches(rootDirectory, it.toFile(), parser),
+      file = it.toFile(),
+      sourceDirectory = rootDirectory
+    )
+  }
   .toList()
 
 

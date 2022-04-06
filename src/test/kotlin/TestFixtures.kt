@@ -2,9 +2,15 @@ package io.holixon.avro.maven
 
 import io.toolisticon.maven.fn.FileExt.createSubFoldersFromPath
 import io.toolisticon.maven.fn.FileExt.writeString
+import org.apache.avro.Schema
 import java.io.File
 
 object TestFixtures {
+
+  fun createAvscFile(root: File, schemaString: String): File {
+    val schema = Schema.Parser().parse(schemaString)
+    return root.writeString(schema.namespace, "${schema.name}.avsc", schemaString)
+  }
 
   fun subPath(root: File, file: File) = file.path.removePrefix(root.path + "/")
 

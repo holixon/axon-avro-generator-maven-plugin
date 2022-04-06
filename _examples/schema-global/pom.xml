@@ -36,6 +36,7 @@
             <goals>
               <goal>prepare-schema-deployment</goal>
             </goals>
+
           </execution>
         </executions>
         <dependencies>
