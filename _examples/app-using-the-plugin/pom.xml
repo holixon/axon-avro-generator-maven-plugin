@@ -2,21 +2,22 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.holixon.avro.maven._examples</groupId>
+  <parent>
+    <groupId>io.holixon.avro.maven._examples</groupId>
+    <artifactId>_examples</artifactId>
+    <version>EXAMPLE</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
   <artifactId>app-using-the-plugin</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
 
   <properties>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <kotlin.version>1.6.10</kotlin.version>
-    <java.version>11</java.version>
-    <generator-plugin.version>0.0.1-SNAPSHOT</generator-plugin.version>
-
-    <avro.version>1.11.0</avro.version>
+    <kotlin.version>1.6.20</kotlin.version>
 
     <!-- SCHEMA DEFINITIONS -->
-    <schema-global.version>0.0.1-SNAPSHOT</schema-global.version>
-    <schema-service.version>0.0.1-SNAPSHOT</schema-service.version>
+    <schema-global.version>${project.version}</schema-global.version>
+    <schema-service.version>${project.version}</schema-service.version>
 
 
     <!-- TEST -->
@@ -239,10 +240,9 @@
       <plugin>
         <groupId>io.holixon.avro.maven</groupId>
         <artifactId>axon-avro-generator-maven-plugin</artifactId>
-        <version>${generator-plugin.version}</version>
         <executions>
           <execution>
-            <id>dummy</id>
+            <id>generate-classes-from-avro</id>
             <phase>generate-sources</phase>
             <goals>
               <goal>generate-classes-from-schema</goal>
