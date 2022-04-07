@@ -1,8 +1,8 @@
 package io.holixon.avro.maven.spoon
 
-import io.holixon.avro.maven.avro.DDDType
-import io.holixon.avro.maven.spoon.ext.addStringValue
-import io.holixon.avro.maven.spoon.ext.annotation
+import io.holixon.avro.maven.avro.meta.RecordMetaDataType
+import io.holixon.avro.maven.spoon.ext.SpoonExt.addStringValue
+import io.holixon.avro.maven.spoon.ext.SpoonExt.annotation
 import org.apache.avro.specific.SpecificRecordBase
 import org.jmolecules.event.annotation.DomainEvent
 import spoon.reflect.declaration.CtAnnotation
@@ -13,7 +13,7 @@ class JMoleculesDomainEventAnnotationProcessor(context: SpoonContext) : Abstract
 
   override fun isToBeProcessed(candidate: CtClass<out SpecificRecordBase>) = isGeneratedSpecificRecordClass
     .and(hasRuntimeDependency("org.jmolecules", "jmolecules-events"))
-    .and(hasMetaDataType(DDDType.event)).test(candidate)
+    .and(hasMetaDataType(RecordMetaDataType.event)).test(candidate)
 
 
   override fun process(element: CtClass<out SpecificRecordBase>) {

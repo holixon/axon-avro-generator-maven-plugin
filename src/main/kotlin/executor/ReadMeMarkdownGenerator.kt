@@ -1,7 +1,7 @@
 package io.holixon.avro.maven.executor
 
-import io.holixon.avro.maven.avro.RecordMetaData
 import io.holixon.avro.maven.avro.SchemaAndFile
+import io.holixon.avro.maven.avro.meta.RecordMetaData
 import io.toolisticon.maven.fn.FileExt.readString
 import io.toolisticon.maven.fn.FileExt.removeRoot
 import io.toolisticon.maven.fn.FileExt.writeString
@@ -50,7 +50,7 @@ data class ReadMeMarkdownGenerator(
   data class TableRow(val type: String, val namespace: String, val name: String, val link: String, val revision: String, val description: String) {
     companion object {
       fun createRows(projectBaseDir: File, schemaAndFiles: List<SchemaAndFile>): List<TableRow> = schemaAndFiles.map {
-        val meta = RecordMetaData(it.schema)
+        val meta = RecordMetaData.parse(it.schema)
         TableRow(
           type = meta.type?.name ?: N_A,
           namespace = it.schema.namespace,

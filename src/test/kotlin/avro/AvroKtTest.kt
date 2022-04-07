@@ -1,6 +1,8 @@
 package io.holixon.avro.maven.avro
 
 import io.holixon.avro.maven.TestFixtures
+import io.holixon.avro.maven.avro.meta.RecordMetaData
+import io.holixon.avro.maven.avro.meta.RecordMetaDataType
 import io.toolisticon.maven.fn.FileExt.writeString
 import org.apache.avro.Schema
 import org.assertj.core.api.Assertions.assertThat
@@ -58,15 +60,14 @@ internal class AvroKtTest {
     val field =
       """new Schema.Parser().parse("{\"type\":\"record\",\"name\":\"BankAccountCreatedEvent\",\"namespace\":\"io.holixon.schema.bank.event\",\"doc\":\"A bank account has been created\",\"fields\":[{\"name\":\"accountId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"initialBalance\",\"type\":\"int\"},{\"name\":\"maximalBalance\",\"type\":\"int\"}],\"meta\":{\"type\":\"event\",\"revision\":\"1\"}}")"""
 
-    val recordMetaData = RecordMetaData(schemaFieldToRecordMetadata(field))
+    val recordMetaData = RecordMetaData.parse(schemaFieldToRecordMetadata(field))
 
     assertThat(recordMetaData).isEqualTo(
       RecordMetaData(
         namespace = "io.holixon.schema.bank.event",
         name = "BankAccountCreatedEvent",
-        fullName = "io.holixon.schema.bank.event.BankAccountCreatedEvent",
         revision = "1",
-        type = DDDType.event
+        type = RecordMetaDataType.event
       )
     )
   }

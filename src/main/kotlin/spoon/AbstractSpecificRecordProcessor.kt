@@ -1,7 +1,7 @@
 package io.holixon.avro.maven.spoon
 
-import io.holixon.avro.maven.avro.DDDType
-import io.holixon.avro.maven.spoon.ext.typeReference
+import io.holixon.avro.maven.avro.meta.RecordMetaDataType
+import io.holixon.avro.maven.spoon.ext.SpoonExt.typeReference
 import io.toolisticon.maven.model.ArtifactId
 import io.toolisticon.maven.model.GroupId
 import mu.KLogger
@@ -35,7 +35,7 @@ abstract class AbstractSpecificRecordProcessor(
     context.hasRuntimeDependency.test(groupId, artifactId)
   }
 
-  protected fun hasMetaDataType(type: DDDType): Predicate<CtClass<out SpecificRecordBase>> = Predicate {
+  protected fun hasMetaDataType(type: RecordMetaDataType): Predicate<CtClass<out SpecificRecordBase>> = Predicate {
     type == context.metaData(it).type
   }
 

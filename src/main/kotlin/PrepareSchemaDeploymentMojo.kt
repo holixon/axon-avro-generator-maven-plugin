@@ -1,15 +1,11 @@
 package io.holixon.avro.maven
 
 import io.holixon.avro.maven.PrepareSchemaDeploymentMojo.Companion.GOAL
-import io.holixon.avro.maven.avro.RecordMetaData
-import io.holixon.avro.maven.avro.SchemaAndFile
 import io.holixon.avro.maven.avro.verifyAllAvscInRoot
 import io.holixon.avro.maven.executor.ReadMeMarkdownGenerator
 import io.toolisticon.maven.fn.CleanDirectory
 import io.toolisticon.maven.fn.FileExt.append
 import io.toolisticon.maven.fn.FileExt.createIfNotExists
-import io.toolisticon.maven.fn.FileExt.readString
-import io.toolisticon.maven.fn.FileExt.removeRoot
 import io.toolisticon.maven.mojo.AbstractContextAwareMojo
 import io.toolisticon.maven.mojo.RuntimeScopeDependenciesConfigurator
 import io.toolisticon.maven.plugin.BuildHelperMavenPlugin

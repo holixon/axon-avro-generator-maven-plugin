@@ -1,6 +1,6 @@
 package io.holixon.avro.maven.spoon
 
-import io.holixon.avro.maven.avro.RecordMetaData
+import io.holixon.avro.maven.avro.meta.RecordMetaData
 import io.holixon.avro.maven.avro.schemaFieldToRecordMetadata
 import io.holixon.avro.maven.fn.HasRuntimeDependencyPredicate
 import mu.KLogger
@@ -35,6 +35,6 @@ class SpoonContext(
   fun metaData(type: CtClass<out SpecificRecordBase>) = metaData.computeIfAbsent(type) {
     val schema = schema(it)
 
-    RecordMetaData(schema)
+    RecordMetaData.parse(schema)
   }
 }

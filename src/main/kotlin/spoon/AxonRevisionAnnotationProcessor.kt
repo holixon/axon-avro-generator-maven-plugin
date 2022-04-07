@@ -1,7 +1,7 @@
 package io.holixon.avro.maven.spoon
 
-import io.holixon.avro.maven.spoon.ext.addStringValue
-import io.holixon.avro.maven.spoon.ext.annotation
+import io.holixon.avro.maven.spoon.ext.SpoonExt.addStringValue
+import io.holixon.avro.maven.spoon.ext.SpoonExt.annotation
 import org.apache.avro.specific.SpecificRecordBase
 import org.axonframework.serialization.Revision
 import spoon.reflect.declaration.CtAnnotation

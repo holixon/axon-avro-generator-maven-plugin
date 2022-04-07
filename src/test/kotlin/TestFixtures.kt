@@ -1,11 +1,23 @@
 package io.holixon.avro.maven
 
+import io.toolisticon.maven.fn.FileExt.append
 import io.toolisticon.maven.fn.FileExt.createSubFoldersFromPath
 import io.toolisticon.maven.fn.FileExt.writeString
 import org.apache.avro.Schema
+import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import java.io.File
 
 object TestFixtures {
+
+  fun loadSchema(namespace:String, name:String): Schema {
+    val avroResource = requireNotNull(TestFixtures::class.java.classLoader.getResource("avro"))
+
+    val file = File(avroResource.file).append(namespace.replace(".", File.separator) + File.separator + name + ".avsc")
+    assertThat(file).exists()
+
+    return Schema.Parser().parse(file.readText())
+  }
 
   fun createAvscFile(root: File, schemaString: String): File {
     val schema = Schema.Parser().parse(schemaString)
@@ -551,7 +563,7 @@ object TestFixtures {
     public class CreateBankAccountCommand extends SpecificRecordBase implements SpecificRecord {
         private static final long serialVersionUID = -1447938155098779718L;
 
-        public static final Schema SCHEMA${'$'} = new Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CreateBankAccountCommand\",\"namespace\":\"io.holixon.schema.bank.command\",\"doc\":\"Create a new BankAccount\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}],\"meta\":{\"type\":\"command\",\"revision\":\"47\"}}");
+        public static final Schema SCHEMA${'$'} = new Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CreateBankAccountCommand\",\"namespace\":\"io.holixon.schema.bank.command\",\"doc\":\"Create a new BankAccount\",\"fields\":[{\"name\":\"id\",\"meta\":{\"type\":\"identifierRef\"},\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}],\"meta\":{\"type\":\"command\",\"revision\":\"47\"}}");
 
         public static Schema getClassSchema() {
             return SCHEMA${'$'};
