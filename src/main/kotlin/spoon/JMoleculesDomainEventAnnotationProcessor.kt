@@ -13,7 +13,7 @@ class JMoleculesDomainEventAnnotationProcessor(context: SpoonContext) : Abstract
 
   override fun isToBeProcessed(candidate: CtClass<out SpecificRecordBase>) = isGeneratedSpecificRecordClass
     .and(hasRuntimeDependency("org.jmolecules", "jmolecules-events"))
-    .and(hasMetaDataType(RecordMetaDataType.event)).test(candidate)
+    .and(hasMetaDataType(RecordMetaDataType.Event)).test(candidate)
 
 
   override fun process(element: CtClass<out SpecificRecordBase>) {

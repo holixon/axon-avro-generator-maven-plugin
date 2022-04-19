@@ -13,7 +13,7 @@ class JMoleculesCommandAnnotationProcessor(context: SpoonContext) : AbstractSpec
 
   override fun isToBeProcessed(candidate: CtClass<out SpecificRecordBase>) = isGeneratedSpecificRecordClass
     .and(hasRuntimeDependency("org.jmolecules", "jmolecules-cqrs-architecture"))
-    .and(hasMetaDataType(RecordMetaDataType.command)).test(candidate)
+    .and(hasMetaDataType(RecordMetaDataType.Command)).test(candidate)
 
   override fun process(element: CtClass<out SpecificRecordBase>) {
     val meta = context.metaData(element)

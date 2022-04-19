@@ -12,19 +12,22 @@
   <url>https://github.com/holixon/axon-avro-generator-maven-plugin/</url>
 
   <properties>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <kotlin.version>1.6.20</kotlin.version>
+    <project.encoding>UTF-8</project.encoding>
+    <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
+
+    <kotlin.version>1.6.21</kotlin.version>
     <java.version>11</java.version>
 
     <!-- MAVEN -->
-    <maven.version>3.8.4</maven.version>
+    <maven.version>3.8.5</maven.version>
     <kotlin-mojo-helper.version>0.0.2</kotlin-mojo-helper.version>
     <maven-plugin-api.version>${maven.version}</maven-plugin-api.version>
     <maven-plugin-annotations.version>3.6.4</maven-plugin-annotations.version>
     <mojo-executor.version>2.4.0</mojo-executor.version>
 
     <avro.version>1.11.0</avro.version>
-    <axon.version>4.5.8</axon.version>
+    <axon.version>4.5.9</axon.version>
     <jmolecules.version>1.4.0</jmolecules.version>
     <spoon.version>10.0.0</spoon.version>
 
@@ -194,7 +197,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.7</version>
+          <version>0.8.8</version>
           <executions>
             <execution>
               <id>pre-unit-test</id>

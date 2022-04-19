@@ -14,36 +14,31 @@ data class ReadMeMarkdownGenerator(
   val projectBaseDir: File,
   val readmeFile: File,
   val schemaAndFiles: List<SchemaAndFile>,
-  val markerBegin: String = DEFAULT_BEGIN,
+  val markerBegin: String = DEFAULT_START,
   val markerEnd: String = DEFAULT_END
 ) : Runnable {
   companion object {
     const val N_A = "N/A"
-    const val DEFAULT_BEGIN = "<!-- GENERATED AVSC DOCS (do not remove this marker) -->"
-    const val DEFAULT_END = "<!-- /GENERATED AVSC DOCS  (do not remove this marker) -->"
+    const val DEFAULT_START = "<!-- START GENERATED AVSC DOCS (do not remove this marker) -->\n"
+    const val DEFAULT_END = "<!-- END   GENERATED AVSC DOCS (do not remove this marker) -->\n"
 
-    fun String.replaceBetweenMarkers(table: String, markerBegin: String = DEFAULT_BEGIN, markerEnd: String = DEFAULT_END): String {
-      val buffer = java.lang.StringBuilder()
-      var skipLine = false
-      lines().forEach {
-        if (!skipLine) {
-          buffer.appendLine(it)
-        }
+    /**
+     * Inserts given string "table" between the two markers.
+     * Noop if the markers are not present or in wrong order.
+     */
+    fun String.replaceBetweenMarkers(table: String, markerStart: String = DEFAULT_START, markerEnd: String = DEFAULT_END): String {
+      val startIndex = indexOf(markerStart)
+      val endIndex = indexOf(markerEnd)
 
-        if (it.startsWith(markerBegin)) {
-          skipLine = true
-          buffer.appendLine()
-          buffer.append(table)
-        }
-        if (it.startsWith(markerEnd)) {
-          buffer.appendLine()
-          buffer.appendLine()
-          buffer.appendLine(markerEnd)
-          skipLine = false
-        }
+      if (startIndex < 0 || endIndex < 0 || endIndex < startIndex) {
+        return this
       }
 
-      return buffer.toString()
+      return java.lang.StringBuilder(substring(0, startIndex + markerStart.length))
+        .append(table)
+        .appendLine()
+        .append(substring(endIndex))
+        .toString()
     }
   }
 
@@ -52,7 +47,7 @@ data class ReadMeMarkdownGenerator(
       fun createRows(projectBaseDir: File, schemaAndFiles: List<SchemaAndFile>): List<TableRow> = schemaAndFiles.map {
         val meta = RecordMetaData.parse(it.schema)
         TableRow(
-          type = meta.type?.name ?: N_A,
+          type = meta.type?.decapitalizedName ?: N_A,
           namespace = it.schema.namespace,
           name = it.schema.name,
           link = "./${it.file.removeRoot(projectBaseDir)}",
@@ -65,8 +60,10 @@ data class ReadMeMarkdownGenerator(
         val header = "| Type | Namespace | Name | Revision | Description |\n" +
           "|------|-----------|------|----------|-------------|\n"
 
-        return header + rows.sortedBy { it.type }
+        val table = header + rows.sortedBy { it.type }
           .sortedBy { it.name }.joinToString("\n") { it.render() }
+        return "\n$table\n"
+
       }
     }
 

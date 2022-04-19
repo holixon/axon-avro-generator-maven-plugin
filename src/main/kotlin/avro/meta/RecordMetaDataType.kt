@@ -1,15 +1,19 @@
 package io.holixon.avro.maven.avro.meta
 
+import java.util.*
+
 enum class RecordMetaDataType {
-  event,
-  command,
-  query,
-  queryResult,
+  Event,
+  Command,
+  Query,
+  QueryResult,
   ;
 
-  companion object {
-    private val NAMES = values().associateBy { it.name }
+  val decapitalizedName = name.replaceFirstChar { c -> c.lowercase(Locale.getDefault()) }
 
-    operator fun get(name:String?) : RecordMetaDataType? = name?.let { NAMES[it] }
+  companion object {
+    private val DECAPITALIZED_NAMES = values().associateBy { it.decapitalizedName }
+
+    operator fun get(name:String?) : RecordMetaDataType? = name?.let { DECAPITALIZED_NAMES[it] }
   }
 }

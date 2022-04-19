@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.holixon.avro.maven.TestFixtures
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 internal class FieldMetaDataTest {
 
@@ -18,7 +20,17 @@ internal class FieldMetaDataTest {
 
     with(meta[0]) {
       assertThat(name).isEqualTo("id")
-      assertThat(type).isEqualTo(FieldMetaDataType.identifierRef)
+      assertThat(type).isEqualTo(FieldMetaDataType.IdentifierRef)
     }
+  }
+
+
+  @ParameterizedTest
+  @CsvSource(value=[
+    "identifierRef,IdentifierRef",
+    ","
+  ], nullValues = ["","null"])
+  internal fun `resolve type enums by name`(name:String?, expectedEnum: FieldMetaDataType?) {
+    assertThat(FieldMetaDataType[name]).isEqualTo(expectedEnum)
   }
 }

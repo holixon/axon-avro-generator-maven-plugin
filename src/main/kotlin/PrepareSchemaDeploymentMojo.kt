@@ -106,7 +106,9 @@ class PrepareSchemaDeploymentMojo : AbstractContextAwareMojo() {
 
   data class MarkdownGenerationConfig(
     var enable : Boolean = false,
-    var readmeFile: File? = null
+    var readmeFile: File? = null,
+    var markerStart: String = ReadMeMarkdownGenerator.DEFAULT_START,
+    var markerEnd: String = ReadMeMarkdownGenerator.DEFAULT_END
   ) {
     companion object {
       const val DEFAULT_README = "\${project.basedir}/README.md"

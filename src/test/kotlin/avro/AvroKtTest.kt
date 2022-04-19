@@ -67,7 +67,7 @@ internal class AvroKtTest {
         namespace = "io.holixon.schema.bank.event",
         name = "BankAccountCreatedEvent",
         revision = "1",
-        type = RecordMetaDataType.event
+        type = RecordMetaDataType.Event
       )
     )
   }
