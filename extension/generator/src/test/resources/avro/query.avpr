@@ -1,0 +1,81 @@
+{
+  "namespace": "generator.test",
+  "protocol": "TestQuery",
+  "types": [
+    {
+      "name": "FindAll",
+      "type": "record",
+      "fields": []
+    },
+    {
+      "name": "FindOne",
+      "type": "record",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "LoadOne",
+      "type": "record",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Result",
+      "type": "record",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "messages": {
+    "findAll": {
+      "request": [
+        {
+          "name": "query",
+          "type": "FindAll"
+        }
+      ],
+      "response": {
+        "type": "array",
+        "items": "Result",
+        "default": []
+      }
+    },
+    "findOne": {
+      "request": [
+        {
+          "name": "query",
+          "type": "FindOne"
+        }
+      ],
+      "response": [
+        "Result",
+        "null"
+      ]
+    },
+    "loadOne": {
+      "request": [
+        {
+          "name": "query",
+          "type": "LoadOne"
+        }
+      ],
+      "response": "Result"
+    }
+  }
+}

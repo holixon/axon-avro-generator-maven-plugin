@@ -26,7 +26,7 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>io.holixon.avro.maven</groupId>
+          <groupId>io.holixon.axon.avro.maven</groupId>
           <artifactId>axon-avro-generator-maven-plugin</artifactId>
           <version>${generator-plugin.version}</version>
 

@@ -1,0 +1,29 @@
+{
+  "namespace": "io.holixon.axon.avro.fixtures.schema.command",
+  "name": "CreateBankAccount",
+  "type": "record",
+  "meta": {
+    "type": "command",
+    "revision": "1"
+  },
+  "fields": [
+    {
+      "name": "bankAccountId",
+      "meta": {
+        "type": "identifierRef"
+      },
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name": "initialBalance",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "scale": 2
+      }
+    }
+  ]
+}
