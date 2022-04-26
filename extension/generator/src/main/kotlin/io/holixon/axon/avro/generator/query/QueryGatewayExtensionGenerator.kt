@@ -51,6 +51,8 @@ class QueryGatewayExtensionGenerator(protocol: Protocol) : AbstractProtocolGener
     protocol.messages.values.map { createQueryFn(it) }.forEach {
       objectSpec.addFunction(it)
     }
+
+    addType(objectSpec.build())
   }.build()
 
 }

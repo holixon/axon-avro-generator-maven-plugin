@@ -56,6 +56,29 @@ internal class QueryGatewayExtensionGeneratorTest {
   fun `create and compile file`() {
     val generatedFile = QueryGatewayExtensionGenerator(protocol).save(tmp)
 
+    assertThat(generatedFile.readText().trim()).isEqualTo("""
+      package generator.test
+
+      import java.util.Optional
+      import java.util.concurrent.CompletableFuture
+      import kotlin.collections.List
+      import org.axonframework.messaging.responsetypes.ResponseTypes.instanceOf
+      import org.axonframework.messaging.responsetypes.ResponseTypes.multipleInstancesOf
+      import org.axonframework.messaging.responsetypes.ResponseTypes.optionalInstanceOf
+      import org.axonframework.queryhandling.QueryGateway
+
+      public object TestQueryQueryGatewayExt {
+        public fun QueryGateway.query(query: FindAll): CompletableFuture<List<Result>> = this.query(query,
+            multipleInstancesOf(Result::class.java))
+
+        public fun QueryGateway.query(query: FindOne): CompletableFuture<Optional<Result>> =
+            this.query(query, optionalInstanceOf(Result::class.java))
+
+        public fun QueryGateway.query(query: LoadOne): CompletableFuture<Result> = this.query(query,
+            instanceOf(Result::class.java))
+      }
+    """.trimIndent())
+
     assertThat(TestQueryHelper.compile(generatedFile).exitCode).isEqualTo(OK)
   }
 }
