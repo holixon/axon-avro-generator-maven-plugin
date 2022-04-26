@@ -271,7 +271,7 @@
         <version>${kotlin.version}</version>
       </plugin>
       <plugin>
-        <groupId>io.holixon.avro.maven</groupId>
+        <groupId>io.holixon.axon.avro.maven</groupId>
         <artifactId>axon-avro-generator-maven-plugin</artifactId>
         <executions>
           <execution>
