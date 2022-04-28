@@ -15,6 +15,7 @@
     <module>bom</module>
     <module>extension</module>
     <module>fixtures</module>
+    <module>_examples</module>
   </modules>
 
   <properties>

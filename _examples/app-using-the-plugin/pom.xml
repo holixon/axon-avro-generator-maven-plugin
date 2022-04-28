@@ -3,10 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.holixon.avro.maven._examples</groupId>
+    <groupId>io.holixon.axon.avro.examples</groupId>
     <artifactId>_examples</artifactId>
-    <version>1-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <version>0.0.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>app-using-the-plugin</artifactId>
@@ -73,13 +72,13 @@
     <!-- include dependencies to force compilation order -->
     <!-- not required for actual execution -->
     <dependency>
-      <groupId>io.holixon.avro.maven._examples</groupId>
+      <groupId>io.holixon.axon.avro.examples</groupId>
       <artifactId>schema-service</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>io.holixon.avro.maven._examples</groupId>
+      <groupId>io.holixon.axon.avro.examples</groupId>
       <artifactId>schema-global</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
@@ -284,8 +283,8 @@
               <debug>true</debug>
               <localSchemaDirectory>${project.basedir}/src/main/avro</localSchemaDirectory>
               <schemaArtifacts>
-                <artifact>io.holixon.avro.maven._examples:schema-service:${schema-global.version}</artifact>
-                <artifact>io.holixon.avro.maven._examples:schema-global:${schema-service.version}</artifact>
+                <artifact>io.holixon.axon.avro.examples:schema-service:${schema-global.version}</artifact>
+                <artifact>io.holixon.axon.avro.examples:schema-global:${schema-service.version}</artifact>
               </schemaArtifacts>
               <includeSchemas>
                 <schema>io.holixon.schema.bank.event.BankAccountCreatedEvent</schema>

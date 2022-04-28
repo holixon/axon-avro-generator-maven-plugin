@@ -4,10 +4,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.holixon.avro.maven._examples</groupId>
+    <groupId>io.holixon.axon.avro.examples</groupId>
     <artifactId>_examples</artifactId>
-    <version>1-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <version>0.0.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>schema-global</artifactId>

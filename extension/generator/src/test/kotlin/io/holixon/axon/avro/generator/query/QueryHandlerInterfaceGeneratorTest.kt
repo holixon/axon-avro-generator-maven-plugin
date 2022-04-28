@@ -14,7 +14,6 @@ import java.io.File
 
 internal class QueryHandlerInterfaceGeneratorTest {
 
-
   @TempDir
   lateinit var tempDir: File
 
@@ -53,8 +52,6 @@ internal class QueryHandlerInterfaceGeneratorTest {
   @Test
   fun `create all interfaces in one file`() {
     val generatedFile = QueryHandlerInterfaceGenerator(protocol).save(tempDir)
-
-    println(generatedFile.readText())
 
     assertThat(TestQueryHelper.compile(generatedFile).exitCode).isEqualTo(ExitCode.OK)
 

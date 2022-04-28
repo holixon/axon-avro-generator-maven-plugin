@@ -1,6 +1,9 @@
 {
   "namespace": "io.holixon.axon.avro.fixtures.schema.query",
   "protocol": "FindCurrentBalance",
+  "meta": {
+    "type": "query"
+  },
   "types": [
     {
       "name": "FindCurrentBalanceById",
@@ -31,7 +34,7 @@
           "type": {
             "type": "bytes",
             "logicalType": "decimal",
-            "precision": 5,
+            "precision": 10,
             "scale": 2
           }
         }
