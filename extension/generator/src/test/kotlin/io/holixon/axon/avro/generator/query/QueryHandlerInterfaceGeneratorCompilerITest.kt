@@ -54,8 +54,6 @@ internal class QueryHandlerInterfaceGeneratorCompilerITest {
   fun `create all interfaces in one file`() {
     val generatedFile = QueryHandlerInterfaceGenerator(protocol).save(tempDir)
 
-    println(generatedFile.readText())
-
     assertThat(TestQueryHelper.compile(generatedFile).exitCode).isEqualTo(ExitCode.OK)
 
     assertThat(generatedFile.readText().trim()).isEqualTo("""

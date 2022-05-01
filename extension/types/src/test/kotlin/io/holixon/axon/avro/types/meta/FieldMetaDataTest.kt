@@ -33,7 +33,7 @@ internal class FieldMetaDataTest {
     "identifierRef,IdentifierRef",
     ","
   ], nullValues = ["","null"])
-  internal fun `resolve type enums by name`(name:String?, expectedEnum: FieldMetaDataType?) {
+  fun `resolve type enums by name`(name:String?, expectedEnum: FieldMetaDataType?) {
     assertThat(FieldMetaDataType[name]).isEqualTo(expectedEnum)
   }
 }

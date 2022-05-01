@@ -14,7 +14,6 @@
   <name>extension/${project.artifactId}</name>
   <description>avro-avro-generator</description>
 
-
   <dependencies>
     <dependency>
       <groupId>io.holixon.axon.avro</groupId>
