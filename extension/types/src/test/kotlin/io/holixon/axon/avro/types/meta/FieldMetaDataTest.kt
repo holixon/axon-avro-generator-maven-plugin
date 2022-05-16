@@ -1,7 +1,7 @@
 package io.holixon.axon.avro.types.meta
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.holixon.axon.avro.fixtures.schema.Fixtures
+import io.holixon.axon.avro.fixtures.schema.SchemaFixtures
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,7 +15,7 @@ internal class FieldMetaDataTest {
   @Test
   fun `get fieldMetadata from accountId`() {
 
-    val schema = Fixtures.schemaCreateBankAccount
+    val schema = SchemaFixtures.schemaCreateBankAccount
 
     val meta = FieldMetaData.parse(schema, om)
     assertThat(meta).isNotEmpty.hasSize(1)

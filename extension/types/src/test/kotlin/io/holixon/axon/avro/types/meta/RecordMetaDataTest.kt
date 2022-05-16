@@ -1,15 +1,11 @@
 package io.holixon.axon.avro.types.meta
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.holixon.axon.avro.fixtures.schema.Fixtures
-import org.apache.avro.Protocol
-import org.apache.avro.Schema
+import io.holixon.axon.avro.fixtures.schema.SchemaFixtures
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import java.io.File
-import java.net.URL
 
 
 internal class RecordMetaDataTest {
@@ -20,7 +16,7 @@ internal class RecordMetaDataTest {
   fun `extract recordMetaData from schema`() {
 
 
-    val schema = Fixtures.schemaCreateBankAccount
+    val schema = SchemaFixtures.schemaCreateBankAccount
 
     val meta = RecordMetaData.parse(schema, om)
     assertThat(meta).isNotNull

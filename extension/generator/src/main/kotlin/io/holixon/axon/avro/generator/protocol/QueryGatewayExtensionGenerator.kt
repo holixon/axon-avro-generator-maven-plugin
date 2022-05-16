@@ -1,4 +1,4 @@
-package io.holixon.axon.avro.generator.query
+package io.holixon.axon.avro.generator.protocol
 
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member

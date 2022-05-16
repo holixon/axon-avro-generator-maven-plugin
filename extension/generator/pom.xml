@@ -28,13 +28,22 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro-compiler</artifactId>
+      <version>${avro.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.squareup</groupId>
       <artifactId>kotlinpoet</artifactId>
       <version>${kotlinpoet.version}</version>
-<!--      <scope>runtime</scope>-->
     </dependency>
 
-
+    <dependency>
+      <groupId>fr.inria.gforge.spoon</groupId>
+      <artifactId>spoon-core</artifactId>
+      <version>${spoon.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.jmolecules</groupId>
@@ -60,6 +69,7 @@
       <version>${kotlin-compile-testing.version}</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
 </project>

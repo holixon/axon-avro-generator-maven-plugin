@@ -14,7 +14,6 @@
   <name>bom/${project.artifactId}</name>
   <description>bill of material</description>
 
-
   <dependencyManagement>
     <dependencies>
       <dependency>

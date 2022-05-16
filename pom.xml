@@ -38,7 +38,7 @@
     <axon-bom.version>4.5.12</axon-bom.version>
     <axon.version>4.5.9</axon.version>
     <jmolecules.version>1.4.0</jmolecules.version>
-    <spoon.version>10.0.0</spoon.version>
+    <spoon.version>10.1.1</spoon.version>
     <kotlinpoet.version>1.11.0</kotlinpoet.version>
     <kotlin-compile-testing.version>1.4.8</kotlin-compile-testing.version>
 

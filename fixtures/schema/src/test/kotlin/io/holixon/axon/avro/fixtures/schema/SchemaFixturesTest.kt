@@ -4,11 +4,11 @@ import org.apache.avro.Protocol
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class FixturesTest {
+internal class SchemaFixturesTest {
 
   @Test
   fun `can load protocol`() {
-    val protocol = Fixtures.Helper.loadProtocol(namespace = "io.holixon.axon.avro.fixtures.schema.query", name = "FindCurrentBalance")
+    val protocol = SchemaFixtures.Helper.loadProtocol(namespace = "io.holixon.axon.avro.fixtures.schema.query", name = "FindCurrentBalance")
 
     assertThat(protocol.namespace).isEqualTo("io.holixon.axon.avro.fixtures.schema.query")
     assertThat(protocol.name).isEqualTo("FindCurrentBalance")
@@ -16,7 +16,7 @@ internal class FixturesTest {
 
   @Test
   fun `text from path`() {
-    val text = Fixtures.Helper.readText(
+    val text = SchemaFixtures.Helper.readText(
       namespace = "io.holixon.axon.avro.fixtures.schema.query",
       name = "FindCurrentBalance",
       suffix = "avpr")
@@ -28,7 +28,7 @@ internal class FixturesTest {
 
   @Test
   fun `build path`() {
-    assertThat(Fixtures.Helper.path(
+    assertThat(SchemaFixtures.Helper.path(
       namespace = "io.holixon.axon.avro.fixtures.schema.query",
       name = "FindCurrentBalance",
       suffix = "avpr"

@@ -40,6 +40,12 @@
       <version>${jmolecules.version}</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>io.holixon.axon.avro.fixtures</groupId>
+      <artifactId>axon-avro-fixtures-schema</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
 </project>

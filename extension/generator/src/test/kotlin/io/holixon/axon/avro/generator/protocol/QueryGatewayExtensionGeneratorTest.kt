@@ -1,4 +1,4 @@
-package io.holixon.axon.avro.generator.query
+package io.holixon.axon.avro.generator.protocol
 
 import com.tschuchort.compiletesting.KotlinCompilation.ExitCode.OK
 import io.holixon.axon.avro.types.AxonAvroTypes.message
