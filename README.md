@@ -1,10 +1,12 @@
-# avro-avro-generator-maven-plugin
+# axon-avro
 
 Template repository for usage in organizations: toolisticon, holunda-io, holixon...
 
-[![Build Status](https://github.com/holixon/axon-avro-generator-maven-plugin/workflows/Development%20branches/badge.svg)](https://github.com/holixon/axon-avro-generator-maven-plugin/actions)
+[![incubating](https://img.shields.io/badge/lifecycle-INCUBATING-orange.svg)](https://github.com/holisticon#open-source-lifecycle)
+[![Build Status](https://github.com/holixon/axon-avro/workflows/Development%20branches/badge.svg)](https://github.com/holixon/axon-avro/actions)
 [![sponsored](https://img.shields.io/badge/sponsoredBy-Holisticon-RED.svg)](https://holisticon.de/)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.holixon.avro.maven/axon-avro-generator-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.holixon.avro.maven/axon-avro-generator-maven-plugin)
+
 
 ## goals
 
