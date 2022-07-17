@@ -37,18 +37,15 @@
     <dependency>
       <groupId>org.jmolecules</groupId>
       <artifactId>jmolecules-ddd</artifactId>
-      <version>${jmolecules.version}</version>
     </dependency>
     <dependency>
       <groupId>org.jmolecules</groupId>
       <artifactId>jmolecules-cqrs-architecture</artifactId>
-      <version>${jmolecules.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jmolecules</groupId>
       <artifactId>jmolecules-events</artifactId>
-      <version>${jmolecules.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

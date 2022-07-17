@@ -28,15 +28,6 @@ internal class AvroKtTest {
     assertThat(schema.name).isEqualTo("BalanceChangedEvent")
   }
 
-  @Test
-  fun `schema fqn matches path - everything ok`() {
-    val avscFile: File = tmpDir.writeString("io.holixon.schema.bank.event", "BalanceChangedEvent.avsc", TestFixtures.balanceChangedEventAvsc)
-
-    val schema = verifyPathAndSchemaFqnMatches(tmpDir, avscFile, parser)
-
-    assertThat(schema.namespace).isEqualTo("io.holixon.schema.bank.event")
-    assertThat(schema.name).isEqualTo("BalanceChangedEvent")
-  }
 
   @Test
   fun `cannot parse schema file due to extra comma`() {
@@ -46,14 +37,6 @@ internal class AvroKtTest {
     assertThatThrownBy { canParseSchema(avscFile, parser) }.isInstanceOf(CannotParseAvroSchemaException::class.java)
   }
 
-
-  @Test
-  fun `schema namespace&name does not match path`() {
-    val avscFile: File = tmpDir.writeString("io.holixon.schema.bank", "BalanceChangedEvent.avsc", TestFixtures.balanceChangedEventAvsc)
-
-
-    assertThatThrownBy { verifyPathAndSchemaFqnMatches(tmpDir, avscFile, parser) }.isInstanceOf(AvroSchemaFqnMismatch::class.java)
-  }
 
   @Test
   fun `avro SCHEMA field to RecordMetadata`() {

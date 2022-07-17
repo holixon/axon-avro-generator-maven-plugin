@@ -1,9 +1,8 @@
 package io.holixon.axon.avro.maven.executor
 
-import io.holixon.axon.avro.maven.avro.SchemaAndFile
 import io.holixon.axon.avro.types.meta.RecordMetaData
+import io.toolisticon.lib.avro.declaration.SchemaDeclaration
 import io.toolisticon.maven.fn.FileExt.readString
-import io.toolisticon.maven.fn.FileExt.removeRoot
 import io.toolisticon.maven.fn.FileExt.writeString
 import mu.KLogger
 import java.io.File
@@ -13,7 +12,7 @@ data class ReadMeMarkdownGenerator(
   val enabled: Boolean,
   val projectBaseDir: File,
   val readmeFile: File,
-  val schemaAndFiles: List<SchemaAndFile>,
+  val schemaAndFiles: List<SchemaDeclaration>,
   val markerBegin: String = DEFAULT_START,
   val markerEnd: String = DEFAULT_END
 ) : Runnable {
@@ -44,15 +43,15 @@ data class ReadMeMarkdownGenerator(
 
   data class TableRow(val type: String, val namespace: String, val name: String, val link: String, val revision: String, val description: String) {
     companion object {
-      fun createRows(projectBaseDir: File, schemaAndFiles: List<SchemaAndFile>): List<TableRow> = schemaAndFiles.map {
-        val meta = RecordMetaData.parse(it.schema)
+      fun createRows(projectBaseDir: File, schemaAndFiles: List<SchemaDeclaration>): List<TableRow> = schemaAndFiles.map {
+        val meta = RecordMetaData.parse(it.content)
         TableRow(
           type = meta.type?.decapitalizedName ?: N_A,
-          namespace = it.schema.namespace,
-          name = it.schema.name,
-          link = "./${it.file.removeRoot(projectBaseDir)}",
+          namespace = it.namespace,
+          name = it.name,
+          link = "./src/main/avro/${it.location.path}",
           revision = meta.revision ?: N_A,
-          description = it.schema.doc ?: N_A
+          description = it.content.doc ?: N_A
         )
       }
 

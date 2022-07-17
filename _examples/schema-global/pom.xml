@@ -22,6 +22,11 @@
   <build>
     <defaultGoal>clean package</defaultGoal>
 
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/avro</directory>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>io.holixon.axon.avro.maven</groupId>

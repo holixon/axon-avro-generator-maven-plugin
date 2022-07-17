@@ -18,7 +18,7 @@
     <schema-global.version>${project.version}</schema-global.version>
     <schema-service.version>${project.version}</schema-service.version>
 
-    <jmolecules.version>1.4.0</jmolecules.version>
+    <jmolecules.version>1.6.0</jmolecules.version>
 
     <!-- TEST -->
     <kotlin-logging.version>2.1.21</kotlin-logging.version>
@@ -88,17 +88,14 @@
     <dependency>
       <groupId>org.jmolecules</groupId>
       <artifactId>jmolecules-ddd</artifactId>
-      <version>${jmolecules.version}</version>
     </dependency>
     <dependency>
       <groupId>org.jmolecules</groupId>
       <artifactId>jmolecules-cqrs-architecture</artifactId>
-      <version>${jmolecules.version}</version>
     </dependency>
     <dependency>
       <groupId>org.jmolecules</groupId>
       <artifactId>jmolecules-events</artifactId>
-      <version>${jmolecules.version}</version>
     </dependency>
 
     <!-- TEST -->

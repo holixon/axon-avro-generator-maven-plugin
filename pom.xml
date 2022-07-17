@@ -19,33 +19,39 @@
   </modules>
 
   <properties>
-    <project.encoding>UTF-8</project.encoding>
-    <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
-
-    <kotlin.version>1.6.21</kotlin.version>
+    <kotlin.version>1.7.10</kotlin.version>
     <java.version>11</java.version>
 
+    <!-- CORE-LIBS -->
+    <avro.version>1.11.0</avro.version>
+    <avro-kotlin.version>${avro.version}.0</avro-kotlin.version>
+    <jmolecules-bom.version>2022.1.0</jmolecules-bom.version>
+
     <!-- MAVEN -->
-    <maven.version>3.8.5</maven.version>
-<!--    <kotlin-mojo-helper.version>0.0.2</kotlin-mojo-helper.version>-->
-    <kotlin-mojo-helper.version>0.0.3-SNAPSHOT</kotlin-mojo-helper.version>
+    <maven.version>3.8.6</maven.version>
+    <kotlin-mojo-helper.version>0.1.0</kotlin-mojo-helper.version>
     <maven-plugin-api.version>${maven.version}</maven-plugin-api.version>
     <maven-plugin-annotations.version>3.6.4</maven-plugin-annotations.version>
     <mojo-executor.version>2.4.0</mojo-executor.version>
 
-    <avro.version>1.11.0</avro.version>
-    <axon-bom.version>4.5.12</axon-bom.version>
-    <axon.version>4.5.9</axon.version>
-    <jmolecules.version>1.4.0</jmolecules.version>
+    <axon-bom.version>4.5.14</axon-bom.version>
+    <axon.version>4.5.13</axon.version>
+
     <spoon.version>10.1.1</spoon.version>
     <kotlinpoet.version>1.11.0</kotlinpoet.version>
-    <kotlin-compile-testing.version>1.4.8</kotlin-compile-testing.version>
+    <kotlin-compile-testing.version>1.4.9</kotlin-compile-testing.version>
 
     <!-- TEST -->
     <junit5.version>5.8.2</junit5.version>
     <mockito.version>4.0.0</mockito.version>
     <assertj.version>3.22.0</assertj.version>
+
+    <!-- MAVEN -->
+    <project.encoding>UTF-8</project.encoding>
+    <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
+
+    <maven-plugin-dokka.version>1.7.0</maven-plugin-dokka.version>
   </properties>
 
   <dependencyManagement>
@@ -64,6 +70,15 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.jmolecules</groupId>
+        <artifactId>jmolecules-bom</artifactId>
+        <version>${jmolecules-bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
@@ -307,7 +322,7 @@
         <plugin>
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
-          <version>1.6.10</version>
+          <version>${maven-plugin-dokka.version}</version>
           <executions>
             <execution>
               <phase>package</phase>

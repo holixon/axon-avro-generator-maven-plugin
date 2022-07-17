@@ -2,11 +2,11 @@ package io.holixon.axon.avro.generator
 
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import io.holixon.axon.avro.types.AxonAvroTypes.SchemaFqn
 import io.holixon.axon.avro.types.protocol.ListMessageResponseType
 import io.holixon.axon.avro.types.protocol.MessageResponseType
 import io.holixon.axon.avro.types.protocol.OptionalMessageResponseType
 import io.holixon.axon.avro.types.protocol.SingleMessageResponseType
+import io.toolisticon.lib.avro.fqn.SchemaFqn
 import java.io.File
 import java.util.*
 import java.util.concurrent.CompletableFuture

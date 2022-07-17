@@ -18,7 +18,6 @@
     <resources>
       <resource>
         <directory>src/main/avro</directory>
-        <targetPath>${project.build.outputDirectory}</targetPath>
       </resource>
     </resources>
   </build>

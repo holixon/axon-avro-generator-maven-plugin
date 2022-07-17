@@ -1,9 +1,9 @@
 package io.holixon.axon.avro.generator.protocol
 
 import com.tschuchort.compiletesting.KotlinCompilation.ExitCode.OK
-import io.holixon.axon.avro.types.AxonAvroTypes.message
 import io.holixon.axon.avro.generator.TestQueryHelper
 import io.holixon.axon.avro.generator.TestQueryHelper.protocol
+import io.toolisticon.lib.avro.ext.ProtocolExt.message
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir

@@ -39,6 +39,12 @@
         <artifactId>axon-avro-generator-maven-plugin</artifactId>
         <version>${project.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>io.toolisticon.lib</groupId>
+        <artifactId>avro-kotlin</artifactId>
+        <version>${avro-kotlin.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

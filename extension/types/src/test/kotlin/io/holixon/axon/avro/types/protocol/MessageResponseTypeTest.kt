@@ -1,6 +1,6 @@
 package io.holixon.axon.avro.types.protocol
 
-import io.holixon.axon.avro.types.AxonAvroTypes
+import io.toolisticon.lib.avro.fqn.SchemaFqn
 import org.apache.avro.Protocol
 import org.apache.avro.Protocol.Message
 import org.assertj.core.api.Assertions.assertThat
@@ -47,7 +47,7 @@ internal class MessageResponseTypeTest {
     val namespace = this::class.java.packageName
     val protocolName: String = name.lowercase().replaceFirstChar { it.uppercase() }
     val messageName = name.lowercase()
-    val resultFqn = AxonAvroTypes.SchemaFqn(namespace, "Result")
+    val resultFqn = SchemaFqn(namespace, "Result")
 
 
     val protocol = Protocol.parse(
