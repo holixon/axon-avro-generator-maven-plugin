@@ -4,9 +4,10 @@
 
 Collection of libs and tools to work with axon framework and apache avro.
 
+[![incubating](https://img.shields.io/badge/lifecycle-INCUBATING-orange.svg)](https://github.com/holisticon#open-source-lifecycle)
 [![Build Status](https://github.com/holixon/axon-avro/workflows/Development%20branches/badge.svg)](https://github.com/holixon/axon-avro/actions)
 [![sponsored](https://img.shields.io/badge/sponsoredBy-Holisticon-red.svg)](https://holisticon.de/)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.holixon.avro.maven/axon-avro/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.holixon.avro.maven/axon-avro)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.holixon.axon.avro/axon-avro-bom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.holixon.axon.avro/axon-avro-bom)
 
 ## goals
 
