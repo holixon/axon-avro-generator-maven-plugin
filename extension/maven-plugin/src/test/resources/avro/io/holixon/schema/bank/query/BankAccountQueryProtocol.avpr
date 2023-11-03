@@ -1,0 +1,60 @@
+{
+  "namespace": "io.holixon.schema.bank.query",
+  "protocol": "BankAccountQueryProtocol",
+  "types": [
+    {
+      "name": "FindCurrentAccountBalanceById",
+      "type": "record",
+      "fields": [
+        {
+          "name": "bankAccountId",
+          "type": {
+            "type": "string",
+            "logicalType": "uuid"
+          },
+          "meta": {
+            "type": "identifierRef"
+          }
+        }
+      ]
+    },
+    {
+      "name": "CurrentAccountBalance",
+      "type": "record",
+      "fields": [
+        {
+          "name": "bankAccountId",
+          "type": {
+            "type": "string",
+            "logicalType": "uuid"
+          },
+          "meta": {
+            "type": "identifierRef"
+          }
+        },
+        {
+          "name": "currentBalance",
+          "type": {
+            "type": "bytes",
+            "logicalType": "decimal",
+            "precision": 2
+          }
+        }
+      ]
+    }
+  ],
+  "messages": {
+    "findCurrentAccountBalance": {
+      "request": [
+        {
+          "name": "query",
+          "type": "FindCurrentAccountBalanceById"
+        }
+      ],
+      "response": [
+        "null",
+        "CurrentAccountBalance"
+      ]
+    }
+  }
+}

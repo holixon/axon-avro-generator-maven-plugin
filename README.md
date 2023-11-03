@@ -1,43 +1,26 @@
-# avro-avro-generator-maven-plugin
+# axon-avro-spoon
 
-Template repository for usage in organizations: toolisticon, holunda-io, holixon...
 
-[![Build Status](https://github.com/holixon/axon-avro-generator-maven-plugin/workflows/Development%20branches/badge.svg)](https://github.com/holixon/axon-avro-generator-maven-plugin/actions)
-[![sponsored](https://img.shields.io/badge/sponsoredBy-Holisticon-RED.svg)](https://holisticon.de/)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.holixon.avro.maven/axon-avro-generator-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.holixon.avro.maven/axon-avro-generator-maven-plugin)
+![currently in development](https://img.shields.io/badge/lifecycle-INCUBATING-orange.svg)
 
-This repository is a **template repository** designed to be a template for the next project.
+Collection of libs and tools to work with axon framework and apache avro.
 
-## How to use
+[![incubating](https://img.shields.io/badge/lifecycle-INCUBATING-orange.svg)](https://github.com/holisticon#open-source-lifecycle)
+[![Build Status](https://github.com/holixon/axon-avro/workflows/Development%20branches/badge.svg)](https://github.com/holixon/axon-avro/actions)
+[![sponsored](https://img.shields.io/badge/sponsoredBy-Holisticon-red.svg)](https://holisticon.de/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.holixon.axon.avro/axon-avro-bom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.holixon.axon.avro/axon-avro-bom)
 
-* create a new repo on github (can be in any organization). Choose this project as template repository. Copy all branches, so the `master`exists in your repo (for the github actions)
-* on the command line: clone your new repo locally
-* in the `setup.sh` script: set your organization, repository and base package
-* run the `setup.sh` script, all placeholders are filled with your information
-* delete the setup-script
-* Update the `README.md`
-* in the `developers` section of the `pom.xml`: mention yourself ... it is your project.
+## goals
 
-## Things to change after usage of template
+### verify-and-create-docs
 
-To change the following values, modify the placeholders in `setup.sh` and run it.
-This is a one-time operation, you can safely delete the `setup.sh` file afterwards.
+Keep your schema files in `src/main/avro`. The path must fit the declared namespace, so
 
-Of course, you can also edit manually .... and do not forget to change this `README.md` with YOUR project specific information :-).
+```json
+{ "type":"record", "namespace":"io.foo.bar", "name": "BarEvent" }
+```
 
-### Maven pom.xml 
-
-* Maven coordinates: `groupId`, `artifactId` and `version`
-* Main description: `name`, `url`, `description`
-* SCM: `connection`, `url`, `developerConnection`
-
-### Issue Template
-
-* correct the URL to repo
-
-### Issue Labels
-
-* Check the release-notes.yml for details, but create the following labels: Type: dependencies, Type: bug, Type: documentation, Type: question, Type: enhancement
+must be placed in a file: `src/main/avro/io/foo/bar/BarEvent.avsc`
 
 ## Useful information
 

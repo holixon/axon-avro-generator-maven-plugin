@@ -1,0 +1,16 @@
+{
+  "type": "record",
+  "namespace": "io.holixon.schema.bank.command",
+  "name": "CreateBankAccountCommand",
+  "doc": "Create a new BankAccount",
+  "meta": {
+    "type": "command",
+    "revision": "47"
+  },
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    }
+  ]
+}

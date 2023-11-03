@@ -5,7 +5,7 @@
   "doc": "A bank account has been created",
   "meta": {
     "type": "event",
-    "revision": "1"
+    "revision": "19"
   },
   "fields": [
     {

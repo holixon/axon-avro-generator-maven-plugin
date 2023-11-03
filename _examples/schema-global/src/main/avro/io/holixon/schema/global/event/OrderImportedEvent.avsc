@@ -5,7 +5,7 @@
   "doc": "A new order has been imported. Order ID ...",
   "meta": {
     "type": "event",
-    "revision": "1"
+    "revision": "90"
   },
   "fields": [
     {

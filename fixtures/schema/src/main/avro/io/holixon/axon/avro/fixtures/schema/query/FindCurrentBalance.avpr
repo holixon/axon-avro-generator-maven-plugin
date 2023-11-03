@@ -1,0 +1,58 @@
+{
+  "namespace": "io.holixon.axon.avro.fixtures.schema.query",
+  "protocol": "FindCurrentBalance",
+  "meta": {
+    "type": "query"
+  },
+  "types": [
+    {
+      "name": "FindCurrentBalanceById",
+      "type": "record",
+      "fields": [
+        {
+          "name": "bankAccountId",
+          "type": {
+            "type": "string",
+            "logicalType": "uuid"
+          }
+        }
+      ]
+    },
+    {
+      "name": "CurrentBalance",
+      "type": "record",
+      "fields": [
+        {
+          "name": "bankAccountId",
+          "type": {
+            "type": "string",
+            "logicalType": "uuid"
+          }
+        },
+        {
+          "name": "currentBalance",
+          "type": {
+            "type": "bytes",
+            "logicalType": "decimal",
+            "precision": 10,
+            "scale": 2
+          }
+        }
+      ]
+    }
+  ],
+  "messages": {
+    "findCurrentBalanceById": {
+      "request": [
+        {
+          "name": "query",
+          "type": "FindCurrentBalanceById"
+        }
+      ],
+      "response": [
+        "CurrentBalance",
+        "null"
+      ]
+    }
+  }
+}
